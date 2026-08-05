@@ -532,6 +532,10 @@
   letter-spacing: -0.015em;
   line-height: 1.3;
   color: var(--ink);
+  /* A phone number must never break across lines — in a narrow rail it would
+     wrap into two fragments inside the control that dials it. The footer's
+     number already carries this; this one was missing it. */
+  white-space: nowrap;
 }
 
 .booking__phone-go {
@@ -2091,6 +2095,38 @@
 
   .rr__head > div {
     max-width: 100%;
+  }
+}
+
+/* Tablet — the same one-card swipe the phone gets, not a three-up carousel.
+   The slide was capped at 380px, which on a 768px screen is under half the
+   width: the case and both its neighbours came out near enough the same size,
+   so the section read as a row of three rather than as one case you swipe
+   through. The cap rises and the neighbours are pushed back much harder, so
+   there is one card being looked at and two hints that more exist.
+
+   The cap is what stops it there. These plates are portrait (970 × 1280), so
+   width buys height fast — a slide sized to the phone's 86vw would be over
+   800px tall on an iPad and could not be seen in one screen. */
+@media (min-width: 561px) and (max-width: 1080px) {
+  .rr__slide {
+    flex-basis: min(62vw, 470px);
+    /* Further back and fainter than the phone's neighbours, because at this
+       width they have the room to compete and on a phone they do not. */
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+
+  .rr__slide[aria-current] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Half the slide, so the current case sits centred whatever the cap resolves
+     to — it has to track `flex-basis` or the first and last cases stop landing
+     in the middle of the screen. */
+  .rr__track {
+    padding-inline: calc(50% - min(31vw, 235px));
   }
 }
 
@@ -3938,10 +3974,15 @@
 
 }
 
-/* Booking and About keep their two-column composition through the tablet band
-   — copy on one side, form or panel on the other. Only the ratios and the gap
-   tighten; they do not stack until phone width. */
-@media (min-width: 761px) and (max-width: 940px) {
+/* Booking and About keep their two-column composition through the whole tablet
+   band — copy on one side, form or panel on the other. Only the ratios and the
+   gap tighten; they do not stack until phone width.
+
+   The band runs to 1080px, not 940: that is where the header gives up its
+   inline nav for a burger and Real Results becomes a slider, so it is where
+   the page as a whole stops being a desktop. Ending this at 940 left 941–1080
+   — iPad landscape included — on desktop proportions. */
+@media (min-width: 761px) and (max-width: 1080px) {
   /* The form keeps the wider side — it is the section's job, and the rail
      beside it holds three short lines and a phone number. */
   .booking__desk {
@@ -3970,19 +4011,52 @@
   .about__proof {
     padding: clamp(22px, 2.8vw, 30px);
   }
+
+  /* Three steps still fit across, but only just — at 761px each track is about
+     210px. The gutter gives up what the text needs, and the heading and its
+     note stop competing for one line. */
+  .about__steps {
+    gap: clamp(16px, 2.2vw, 24px);
+  }
+
+  .about__track-head {
+    display: block;
+  }
+
+  .about__track-head .about__track-note {
+    margin-top: 10px;
+  }
 }
 
-@media (max-width: 940px) {
+/* The rest of the tablet band, on the same 1080px line. Five stats and five
+   reasons across a 1024px screen leave each about 180px — narrower than the
+   labels they carry ("FDA-Approved Technologies", "Personalized Treatment
+   Plans"), which is what wrapped them into three-line stacks on an iPad. */
+@media (max-width: 1080px) {
   /* Five across is too narrow here. The rail wraps to 3 + 2, and the divider
      moves with it: it is drawn between neighbours in a row, so entries 1 and 4
      start their rows and must lose the line on their left. The second row is
-     separated by a horizontal rule instead. */
+     separated by a horizontal rule instead.
+
+     Six tracks, each entry spanning two, so the odd row of two can be placed
+     across the middle four. At three tracks the last two sat in columns 1 and
+     2 and left a third of the panel empty beside them — a hole inside a box
+     with a border drawn round it, which reads as a missing card. */
   .why__rail {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .why__item {
+    grid-column: span 2;
   }
 
   .why__item:nth-child(4) {
+    grid-column: 2 / span 2;
     box-shadow: none;
+  }
+
+  .why__item:nth-child(5) {
+    grid-column: 4 / span 2;
   }
 
   .why__item:nth-child(4),
@@ -3998,15 +4072,34 @@
     border-right: 0;
   }
 
-  /* The band's two halves stop sharing a line. The heading takes the full
-     width and the score and call drop under it, both still left-aligned —
-     centring them would leave the cards below hanging off a centred axis. */
+  /* The band's two halves stop sharing a line: the heading takes the full
+     width and the score and call drop under it. Centred, not left-ragged —
+     the review cards below are centred on this axis too now, and a left-hung
+     heading over a centred set left the whole right half of the band empty. */
   .reviews__band {
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .reviews__band-copy {
     max-width: none;
+  }
+
+  .reviews__band-side {
+    justify-content: center;
+  }
+
+  /* The note and the closing CTA sit under a slider that is centred on the
+     screen, so they centre with it rather than hanging off the left edge with
+     the rest of the row empty. */
+  .rr__foot {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .rr__note {
+    justify-content: center;
   }
 
   /* The rail stops being a column — heading above, questions below — and with
@@ -4047,12 +4140,26 @@
   }
 }
 
-/* Tablet only. Two reviews to a row rather than three — a third column here
-   cuts each card below a comfortable measure. Floor at 561px keeps phones on
-   the single-column list. */
-@media (min-width: 561px) and (max-width: 940px) {
+/* Tablet only. Two reviews to a row rather than three — a third column cuts
+   each card to about 290px on a 1024px screen, which is below a comfortable
+   measure for a quote of this length. Floor at 561px keeps phones on the
+   single-column list.
+
+   There are three reviews, so two to a row leaves the third on its own. Four
+   tracks with each card spanning two lets that last one be placed across the
+   middle, centred under the pair above it, instead of sitting in the left half
+   with the right half of the row empty. */
+@media (min-width: 561px) and (max-width: 1080px) {
   .reviews__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .rev {
+    grid-column: span 2;
+  }
+
+  .rev:nth-child(3) {
+    grid-column: 2 / span 2;
   }
 }
 
@@ -4343,6 +4450,15 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* The spans and placements the tablet band uses to centre its odd row have
+     to be handed back here, or `span 2` against a single-track grid conjures
+     implicit columns and the rail stops being one. */
+  .why__item,
+  .why__item:nth-child(4),
+  .why__item:nth-child(5) {
+    grid-column: auto;
+  }
+
   .why__item {
     flex-direction: row;
     align-items: center;
@@ -4440,11 +4556,22 @@
   }
 
   .faq__cta .btn,
+  /* The score panel and the call sat at two different widths — the button was
+     stretched to the column and the panel beside it kept its content width, so
+     the pair read as misaligned rather than as a stack. They share an edge
+     now: the side becomes a column and both children fill it. */
+  .reviews__band-side {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .reviews__band-side .btn {
     width: 100%;
   }
 
   .score {
+    width: 100%;
     padding: 16px 18px;
   }
 
@@ -4454,6 +4581,42 @@
 
   .about__figure strong {
     font-size: 2.4rem;
+  }
+
+  /* xs — the track's heading and its note never share a line here, and the
+     steps give up the padding that a 3-across row needed. */
+  .about__track-head {
+    display: block;
+  }
+
+  .about__track-head .about__track-note {
+    margin-top: 9px;
+    align-items: flex-start;
+  }
+
+  .about__track-note svg {
+    margin-top: 4px;
+  }
+
+  .about__steps li {
+    padding: 15px 0;
+    column-gap: 13px;
+  }
+
+  .about__step-n {
+    width: 36px;
+    height: 36px;
+    font-size: 0.8rem;
+  }
+
+  /* The proof panel is the widest thing in the column once stacked; its inner
+     padding is the only place left to find room. */
+  .about__proof {
+    padding: 22px 18px;
+  }
+
+  .about__pillars li {
+    padding: 14px 0;
   }
 
   /* xs — the card takes the width it is given. The overlay's 20px gutter is
@@ -4574,10 +4737,46 @@
     padding: 20px 14px 24px;
   }
 
-  /* The number is the widest thing in the rail; at this width the trailing
-     arrow is the first thing that can go. */
+  /* The number is the widest thing in the rail and may not wrap, so at this
+     width the trailing arrow goes first, then the number itself steps down and
+     the handset shrinks — in that order, because the number is the point. */
   .booking__phone-go {
     display: none;
+  }
+
+  .booking__phone {
+    gap: 11px;
+    padding: 11px 12px;
+  }
+
+  .booking__phone-ic {
+    width: 34px;
+    height: 34px;
+  }
+
+  .booking__phone-text strong {
+    font-size: 0.95rem;
+  }
+
+  /* The figure keeps its weight but stops being the widest thing on the
+     screen, and the steps close up to match. */
+  .about__figure strong {
+    font-size: 2.1rem;
+  }
+
+  .about__pillar-ic {
+    width: 38px;
+    height: 38px;
+  }
+
+  .about__step-n {
+    width: 33px;
+    height: 33px;
+    font-size: 0.76rem;
+  }
+
+  .about__steps li {
+    column-gap: 12px;
   }
 
   .ftr .shell {

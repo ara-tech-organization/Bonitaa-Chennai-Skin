@@ -28,7 +28,22 @@ jobs:
       # npm install, not ci: the lockfile is generated on Windows and omits
       # sharp's Linux-only optional deps, which makes `npm ci` bail.
       - run: npm install --no-audit --no-fund
+
+      # Pages serves a project site from /<repo>/, so the bundle has to be
+      # built for that sub-path or every asset 404s and the page renders white.
+      # Taken from the repository name rather than hard-coded, so renaming the
+      # repo does not silently break the deploy.
       - run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      # Pages has no rewrite rules, so the clean paths the app writes to the
+      # address bar (/about, /treatments, /thank-you) do not exist as files —
+      # a refresh or a shared link on one of them would hit a dead end. GitHub
+      # answers any unknown path with 404.html, so it serves the app instead.
+      # Only the Pages build does this; the Hostinger upload keeps the real
+      # not-found page from public/, because Apache rewrites those paths itself.
+      - run: cp dist/index.html dist/404.html
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

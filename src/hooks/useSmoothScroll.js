@@ -104,6 +104,17 @@ export default function useSmoothScroll(enabled = true) {
   }, [enabled])
 }
 
+/*
+ * Where the app is mounted — "/" on the domain root, "/<repo>/" on a GitHub
+ * Pages project site. Always ends in a slash.
+ *
+ * Every path this module writes is built on it. Pushing a bare "/treatments"
+ * under a sub-path deployment puts the address bar *outside* the app: the URL
+ * still looks plausible, but a refresh or a shared copy of it asks the host for
+ * something that was never deployed there.
+ */
+const BASE = import.meta.env.BASE_URL
+
 /** Rewrites the address bar without navigating or touching the scroll. */
 function setPath(path) {
   if (window.location.pathname === path) return
@@ -146,13 +157,13 @@ export function useCleanAnchors() {
          under the fixed header, so offsetting it would leave a gap above. */
       if (hash === '#top') {
         smoothScrollTo(0)
-        setPath('/')
+        setPath(BASE)
       } else {
         scrollToSection(target)
         /* `#treatments` becomes `/treatments`. A path rather than a fragment:
            it reads as a page on a site that only has one, and it is what
            analytics can report on as a section view. */
-        setPath(hash.replace('#', '/'))
+        setPath(BASE + hash.slice(1))
       }
     }
 
@@ -171,13 +182,16 @@ export function useCleanAnchors() {
      which is what makes this work before anything below the fold has mounted. */
   useEffect(() => {
     const { hash, pathname } = window.location
-    const id = hash ? hash.slice(1) : pathname.replace(/^\/|\/$/g, '')
+    /* The section name with the mount point taken off the front, so `/about`
+       and `/Bonitaa-Chennai-Skin/about` both resolve to `about`. */
+    const withinApp = pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname.slice(1)
+    const id = hash ? hash.slice(1) : withinApp.replace(/\/$/, '')
     if (!id) return
 
     const target = document.getElementById(id)
     if (!target) return
 
-    if (hash) window.history.replaceState(null, '', `/${id}`)
+    if (hash) window.history.replaceState(null, '', `${BASE}${id}`)
     /* After paint, so the observer-driven sections have had their first pass
        and the scroll lands on real content rather than a reserved height. */
     requestAnimationFrame(() => scrollToSection(target))

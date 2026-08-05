@@ -82,13 +82,21 @@ export default function Results() {
     pausedUntil.current = Date.now() + HOLD_AFTER_TOUCH
   }
 
-  /** One slide's worth of travel, measured off the DOM rather than assumed. */
+  /**
+   * One slide's worth of travel, measured off the DOM rather than assumed.
+   *
+   * `offsetWidth`, not `getBoundingClientRect().width`: off-centre slides are
+   * scaled down, and the rect reports the *transformed* box. Measuring slide 0
+   * while it sat off-centre therefore returned a width a tenth short, and every
+   * `i * width` offset compounded that error until the wrong case was scrolled
+   * to. `offsetWidth` is the layout box and ignores the transform.
+   */
   const slideWidth = () => {
     const track = trackRef.current
     const card = track?.firstElementChild
     if (!card) return 0
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0
-    return card.getBoundingClientRect().width + gap
+    return card.offsetWidth + gap
   }
 
   /** Moves the slider; `active` follows from the scroll handler, not from here. */

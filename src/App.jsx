@@ -28,8 +28,13 @@ const Footer = lazy(() => import('./components/Footer'))
 
 /* Pushed on submit so analytics has a URL for the conversion, and popped when
    the visitor leaves the confirmation. Nothing is served at this path — it is
-   a history entry over the landing page, not a document. */
-const THANK_YOU_PATH = '/thank-you'
+   a history entry over the landing page, not a document.
+
+   Built on BASE_URL so it stays inside the app wherever it is mounted: on a
+   GitHub Pages project site a bare "/thank-you" points at the organisation
+   root, outside anything this repo deployed. */
+const BASE = import.meta.env.BASE_URL
+const THANK_YOU_PATH = `${BASE}thank-you`
 
 export default function App() {
   const reduced = usePrefersReducedMotion()
@@ -53,7 +58,7 @@ export default function App() {
   const hideThanks = () => {
     setThanked(false)
     if (window.location.pathname === THANK_YOU_PATH) {
-      window.history.pushState({}, '', '/')
+      window.history.pushState({}, '', BASE)
     }
   }
 
