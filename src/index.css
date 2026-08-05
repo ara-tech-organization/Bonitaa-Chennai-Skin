@@ -540,25 +540,26 @@ html {
 
    `.results__head` nests its copy one level deeper, beside the rail arrows. */
 
-/* The wrapper is only the observer target — all motion belongs to the parts. */
+/* The wrapper is only the observer target — all motion belongs to the parts.
+   `.reviews__band` nests its parts one level deeper, the same way
+   `.results__head` does: heading in one half, score and call in the other.
+   The beats below are unchanged — only the selectors follow the markup. */
 .section-head.reveal,
 .results__head.reveal,
-.reviews__aside.reveal {
+.reviews__band.reveal {
   opacity: 1;
   animation: none;
 }
 
 .section-head > *,
 .results__head > div > *,
-.results__head > .rr__seal,
-.reviews__aside > * {
+.reviews__band > div > * {
   opacity: 0;
 }
 
 .section-head.is-in > *,
 .results__head.is-in > div > *,
-.results__head.is-in > .rr__seal,
-.reviews__aside.is-in > * {
+.reviews__band.is-in > div > * {
   opacity: 1;
   animation: reveal-in 0.75s var(--ease) backwards;
 }
@@ -566,7 +567,7 @@ html {
 /* Beat order, shared by every heading block. */
 .section-head.is-in > .eyebrow,
 .results__head.is-in > div > .eyebrow,
-.reviews__aside.is-in > .eyebrow {
+.reviews__band.is-in > div > .eyebrow {
   animation-name: reveal-tag;
   animation-delay: 60ms;
 }
@@ -580,7 +581,7 @@ html {
 
 .section-head.is-in > h2,
 .results__head.is-in > div > h2,
-.reviews__aside.is-in > h2 {
+.reviews__band.is-in > div > h2 {
   animation-delay: 170ms;
 }
 
@@ -597,17 +598,15 @@ html {
 }
 
 .section-head.is-in > p,
-.results__head.is-in > div > p,
-.reviews__aside.is-in > .reviews__intro {
+.results__head.is-in > div > p {
   animation-delay: 380ms;
 }
 
-.reviews__aside.is-in > .score {
+.reviews__band.is-in > div > .score {
   animation-delay: 300ms;
 }
 
-.results__head.is-in > .rr__seal,
-.reviews__aside.is-in > .btn {
+.reviews__band.is-in > div > .btn {
   animation-delay: 470ms;
 }
 
@@ -677,8 +676,7 @@ html {
   .reveal,
   .section-head > *,
   .results__head > div > *,
-  .results__head > .rr__seal,
-  .reviews__aside > * {
+  .reviews__band > div > * {
     opacity: 1;
     transform: none;
   }

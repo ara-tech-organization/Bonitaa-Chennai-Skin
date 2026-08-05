@@ -64,19 +64,23 @@ const SOURCE_LABEL = {
  *
  * One key per question, and nothing else. `email`, `time`, `treatment` and
  * `message` are gone: the form asks for a phone rather than an email, because
- * the page promises a callback; the Morning/Afternoon/Evening choice became a
- * date picker; and treatment was never asked. Sending them as empty strings
- * only put blank rows in the notification and blank columns in the sheet.
+ * the page promises a callback; the Morning/Afternoon/Evening choice is a date
+ * picker again; and treatment was never asked. Sending a key the form cannot
+ * fill only puts blank rows in the notification email and blank columns in the
+ * sheet.
  *
- * ⚠ This shape requires the updated email.php. The handler that rejects an
- * empty `time` or `treatment` will refuse every one of these as "Missing
- * required fields" — the two have to ship together.
+ * ⚠ THIS SHAPE REQUIRES A MATCHING email.php, AND IT IS A BLOCKING CHECK.
+ * The handler was built for {name, phone, city, branch, date}. `city` is no
+ * longer asked, so if the handler still treats it as required it will reject
+ * EVERY enquiry as "Missing required fields" — silently, because the visitor
+ * is thanked before the answer arrives (see ACK_MS below). Confirm the handler
+ * accepts {name, phone, branch, date} before this goes live. Set
+ * VITE_LEAD_ENDPOINT=off to test the UI without delivery.
  */
 function toApiPayload(lead) {
   return {
     name: lead.name ?? '',
     phone: lead.phone ?? '',
-    city: lead.city ?? '',
     branch: lead.branch ?? '',
     date: lead.date ?? '',
     source: SOURCE_LABEL[lead.source] ?? lead.source ?? 'Website Form',

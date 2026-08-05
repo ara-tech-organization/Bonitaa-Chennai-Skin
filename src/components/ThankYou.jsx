@@ -35,14 +35,14 @@ export default function ThankYou({ open, onClose }) {
 
         <h2 id="ty-title">Thank you — we&rsquo;ve got your request</h2>
         <p className="ty__lede">
-          One of our Chennai hair specialists will call you back shortly to confirm your
+          One of our Chennai skin specialists will call you back shortly to confirm your
           appointment.
         </p>
 
         <div className="ty__next">
           <strong>What happens next</strong>
-          We call you within 30 minutes during clinic hours to confirm your date and branch. Keep
-          your phone handy — we call from a local Chennai number.
+          We call you in the time slot you chose, within 30 minutes during clinic hours, to confirm
+          your date and branch. Keep your phone handy — we call from a local Chennai number.
         </div>
 
         <div className="ty__actions">

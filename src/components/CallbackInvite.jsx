@@ -87,7 +87,7 @@ export default function CallbackInvite({ onDismiss, onSubmitted }) {
             ever fitted the exit-intent trigger and now reads as a non-sequitur
             for the five-second and scroll-depth ones. */}
         <h3 id="invite-title">
-          Get a Callback From Our <span className="gold-text">Chennai Hair Specialist</span>
+          Get a Callback From Our <span className="gold-text">Chennai Skin Specialist</span>
         </h3>
         <p className="invite__sub">Takes 15 seconds. We&apos;ll call you back today.</p>
 

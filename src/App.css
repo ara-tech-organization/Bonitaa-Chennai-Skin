@@ -325,91 +325,224 @@
   background: var(--white);
 }
 
-.booking__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
-  gap: clamp(34px, 5vw, 64px);
-  align-items: start;
+/* Heading band across the top of the section: copy on the left, the reply
+   promise on the right. Left-aligned rather than centred — the two panes
+   beneath it are unequal, and a centred head over an asymmetric body has
+   nothing to line up with. */
+.booking__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px clamp(24px, 4vw, 48px);
+  margin-bottom: clamp(28px, 3.4vw, 44px);
+}
+
+.booking__head-copy {
+  max-width: 620px;
 }
 
 .booking__sub {
   margin-top: 16px;
-  max-width: 42ch;
+  max-width: 46ch;
+}
+
+/* Sits on the heading's baseline band, not inside the form — a promise about
+   how fast the clinic answers belongs where the visitor decides whether to
+   start, not where they finish. */
+.booking__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: var(--r-full);
+  background: var(--gold-050);
+  border: 1px solid var(--gold-200);
+  font-size: 0.79rem;
+  font-weight: 500;
+  color: var(--gold-900);
+  white-space: nowrap;
+}
+
+/* ---------- The desk ----------
+   Two panes under one border, not two cards with air between them. The form
+   pane keeps the white paper; the rail beside it takes the gold tint, so the
+   pair reads as one surface with a working half and a supporting half.
+
+   The gold bar is a background layer, not an overlaid strip, so the desk does
+   not need `overflow: hidden` to keep it inside the rounded corners — and the
+   date picker's panel is therefore free to hang past the pane's edge. */
+.booking__desk {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr);
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    var(--grad-gold) top center / 100% 4px no-repeat,
+    var(--white);
+  box-shadow: var(--sh-lg);
+}
+
+.booking__pane {
+  padding: clamp(24px, 3.4vw, 40px);
+}
+
+.booking__pane-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.booking__hint {
+  font-size: 0.79rem;
+  color: var(--muted);
+}
+
+/* ---------- Support rail ---------- */
+
+/* The tint starts 4px down so the desk's gold edge runs unbroken across both
+   panes; rounded on its outer corners only, because it is a half of the desk
+   rather than a card sitting next to one. */
+.booking__rail {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 34px);
+  border-left: 1px solid var(--gold-200);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background-image: var(--grad-gold-soft);
+  background-repeat: no-repeat;
+  background-position: 0 4px;
+  background-size: 100% calc(100% - 4px);
+}
+
+.booking__rail-title {
+  font-size: 1rem;
+  color: var(--ink);
 }
 
 .booking__list {
   list-style: none;
   padding: 0;
-  margin: 28px 0 0;
-  display: grid;
-  gap: 14px;
+  margin: clamp(14px, 1.8vw, 18px) 0 0;
 }
 
 .booking__list li {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.92rem;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 0;
+  font-size: 0.91rem;
+  line-height: 1.5;
   color: var(--ink-soft);
 }
 
+.booking__list li + li {
+  border-top: 1px solid var(--gold-200);
+}
+
+/* White chips, not gold ones: the rail is tinted now, and a gold-100 tile on a
+   gold-tinted ground is a chip you cannot see. */
 .booking__list-ic {
   display: grid;
   place-items: center;
   flex: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  color: var(--gold-800);
-  background: var(--gold-100);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: var(--gold-700);
+  background: var(--white);
+  border: 1px solid var(--gold-200);
+  box-shadow: var(--sh-xs);
 }
 
+/* Pushed to the foot of the rail, so the call lands beside the form's submit
+   rather than floating halfway up a column the form is twice as tall as. */
 .booking__call {
-  margin-top: 34px;
-  padding-top: 26px;
-  border-top: 1px solid var(--line);
+  margin-top: auto;
+  padding-top: clamp(20px, 2.6vw, 26px);
+  border-top: 1px solid var(--gold-200);
 }
 
 .booking__call p {
-  margin-bottom: 14px;
-  font-size: 0.9rem;
+  margin-bottom: 12px;
+  font-size: 0.86rem;
   color: var(--muted);
 }
 
-/* The gold bar is a background layer, not an overlaid strip, so the card does
-   not need `overflow: hidden` to keep it inside the rounded corners — and the
-   date picker's panel is therefore free to hang past the card's edge. */
-.booking__card {
-  position: relative;
-  padding: clamp(24px, 3.4vw, 40px);
-  background:
-    var(--grad-gold) top center / 100% 4px no-repeat,
-    var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--sh-lg);
-}
-
-.booking__card-top {
+/* The number itself, set as the control. A "Call Now" button hides the one
+   piece of information a visitor who wants to phone is looking for. */
+.booking__phone {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 26px;
+  gap: 13px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: var(--white);
+  border: 1px solid var(--gold-300);
+  box-shadow: var(--sh-sm);
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    border-color 0.3s var(--ease-soft);
 }
 
-.booking__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: var(--r-full);
-  background: var(--gold-050);
-  border: 1px solid var(--gold-200);
-  font-size: 0.74rem;
-  font-weight: 500;
-  color: var(--gold-900);
+.booking__phone:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-600);
+  box-shadow: var(--sh-md);
+}
+
+.booking__phone-ic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--cta-ink);
+  background: var(--grad-cta);
+  box-shadow: 0 8px 18px -8px rgba(166, 124, 26, 0.65);
+}
+
+.booking__phone-text {
+  min-width: 0;
+}
+
+.booking__phone-text small {
+  display: block;
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.booking__phone-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.booking__phone-go {
+  flex: none;
+  margin-left: auto;
+  color: var(--gold-600);
+  transition: transform 0.4s var(--ease);
+}
+
+.booking__phone:hover .booking__phone-go {
+  transform: translate(3px, -3px);
 }
 
 .booking__pulse {
@@ -1041,12 +1174,17 @@
   margin: 0;
 }
 
+/* Icon beside the figure rather than stacked above it, and the whole entry
+   left-aligned. Five centred stacks read as five little monuments in a row;
+   run in, each one is a fact with a mark next to it and the strip reads as a
+   line of credentials — which is what it is. */
 .trust__item {
   display: grid;
-  justify-items: center;
-  text-align: center;
-  gap: 3px;
-  padding: 10px 8px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 1px;
+  padding: 8px 6px 8px 0;
   border-right: 1px solid var(--line);
 }
 
@@ -1057,9 +1195,11 @@
 .trust__ic {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 6px;
+  /* Spans both rows of the entry, so the mark sits against the figure and its
+     label as one block instead of against the figure alone. */
+  grid-row: span 2;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   color: var(--gold-800);
   background: var(--white);
@@ -1079,8 +1219,11 @@
    which is what separates a figure from a large piece of body copy. */
 .trust__value {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+  /* A touch smaller than the centred stack carried — run in beside a label it
+     no longer has a column to itself to fill. */
+  font-size: clamp(1.32rem, 2.2vw, 1.68rem);
   font-weight: 600;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   /* Deep gradient, not --grad-gold: these are the page's headline figures and
      the pale midpoint left them barely readable against the cream. */
@@ -1091,8 +1234,8 @@
 }
 
 .trust__label {
-  font-size: 0.76rem;
-  line-height: 1.45;
+  font-size: 0.73rem;
+  line-height: 1.35;
   color: var(--muted);
 }
 
@@ -1100,29 +1243,60 @@
    ABOUT
    ========================================================================== */
 
-.about__inner {
+/* Argument left, proof right. The copy column is the wider of the two because
+   it carries the heading and both paragraphs; the panel beside it holds a
+   figure and two short pillars and would look padded at equal width. */
+.about__spread {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(36px, 5vw, 72px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
 }
 
-.about__media {
-  position: relative;
+/* ---------- Copy column ---------- */
+
+.about__copy > p {
+  margin-top: 18px;
+  font-size: 1rem;
+  max-width: 62ch;
 }
 
-.about__panel {
+/* The line under the heading, not a paragraph — it is set as the section's
+   subtitle and has to outrank the body copy that follows it. */
+.about__sub {
+  margin-top: 16px !important;
+  font-size: clamp(1.02rem, 1.5vw, 1.12rem) !important;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--gold-900);
+}
+
+.about__em {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.about__cta {
+  margin-top: clamp(26px, 3.2vw, 36px);
+}
+
+/* ---------- Proof panel ----------
+   The years figure and the two pillars in one gold-tinted card. Both are
+   evidence for the same claim, so they sit together beside the claim rather
+   than interrupting it — the figure used to be a pull-quote mid-paragraph and
+   the pillars a list in a separate column. */
+.about__proof {
   position: relative;
-  padding: clamp(28px, 3.4vw, 42px);
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid var(--gold-200);
   border-radius: var(--r-xl);
   background: var(--grad-gold-soft);
-  border: 1px solid var(--gold-200);
   box-shadow: var(--sh-md);
-  overflow: hidden;
 }
 
-/* Oversized monogram watermark, clipped by the panel. */
-.about__panel::after {
+/* Gold bloom in the corner, clipped by the panel. */
+.about__proof::after {
   content: '';
   position: absolute;
   right: -70px;
@@ -1134,127 +1308,66 @@
   pointer-events: none;
 }
 
-.about__panel-mark {
+.about__proof-mark {
   position: relative;
-  height: clamp(30px, 3.6vw, 37px);
+  height: clamp(28px, 3.2vw, 33px);
   width: auto;
-  margin-bottom: 26px;
   opacity: 0.95;
 }
 
-.about__panel-title {
-  position: relative;
-  font-size: clamp(1.3rem, 2.1vw, 1.52rem);
-  margin-bottom: 24px;
-}
-
-.about__panel-list {
-  position: relative;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 26px;
-  display: grid;
-  gap: 15px;
-  text-align: left;
-}
-
-.about__panel-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-  font-size: 0.94rem;
-  color: var(--ink-soft);
-}
-
-.about__panel-check {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  color: #fffdf7;
-  background: linear-gradient(130deg, var(--gold-700), var(--gold-500));
-  box-shadow: 0 4px 10px -4px rgba(166, 124, 26, 0.6);
-}
-
-.about__panel-note {
+/* Ruled top and bottom rather than boxed — the numeral is the panel's headline,
+   and a card inside a card would be one border too many. */
+.about__figure {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding-top: 20px;
+  gap: clamp(14px, 1.8vw, 18px);
+  margin-top: clamp(20px, 2.4vw, 26px);
+  padding: clamp(18px, 2.2vw, 24px) 0;
   border-top: 1px solid var(--gold-200);
-  font-size: 0.83rem;
-  color: var(--body);
-  text-align: left;
+  border-bottom: 1px solid var(--gold-200);
 }
 
-.about__panel-note svg {
-  flex: none;
-  color: var(--gold-700);
-}
-
-.about__stat {
-  position: absolute;
-  right: -18px;
-  bottom: -22px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 22px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  box-shadow: var(--sh-md);
-}
-
-.about__stat strong {
-  font-size: 2.2rem;
+/* Deep ramp, not --grad-gold: at this size a pale midpoint reads as a printing
+   fault across the widest stroke on the page. */
+.about__figure strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 4.6vw, 3.6rem);
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  background: var(--grad-gold);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  background: var(--grad-gold-deep);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.about__stat span {
-  font-size: 0.76rem;
-  line-height: 1.35;
+.about__figure span {
+  font-size: 0.79rem;
+  line-height: 1.4;
   color: var(--muted);
 }
 
-.about__copy > p {
-  margin-top: 18px;
-  font-size: 1rem;
-}
-
-.about__sub {
-  margin-top: 18px;
-  font-size: 1.05rem !important;
-  font-weight: 500;
-  color: var(--gold-900);
-}
-
-.about__em {
-  color: var(--ink);
-  font-weight: 600;
-}
-
 .about__pillars {
-  display: grid;
-  gap: 16px;
+  position: relative;
   list-style: none;
   padding: 0;
-  margin: 30px 0;
+  margin: 0;
 }
 
 .about__pillars li {
   display: flex;
   align-items: flex-start;
   gap: 14px;
+  padding: clamp(16px, 2vw, 20px) 0;
+}
+
+.about__pillars li + li {
+  border-top: 1px solid var(--gold-200);
+}
+
+.about__pillars li:last-child {
+  padding-bottom: 0;
 }
 
 .about__pillar-ic {
@@ -1279,6 +1392,100 @@
 .about__pillars small {
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+/* ---------- Consultation track ----------
+   Numerals on a rule, not ticks in a box. Three checkmarks read as a feature
+   list; numbered steps on a line read as an order of events, which is what a
+   first visit actually is. Ruled off from the spread above so the section
+   reads as claim, then proof, then process. */
+.about__track {
+  margin-top: clamp(46px, 5.6vw, 78px);
+  padding-top: clamp(30px, 3.6vw, 44px);
+  border-top: 1px solid var(--line);
+}
+
+.about__track-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px clamp(24px, 4vw, 48px);
+  margin-bottom: clamp(28px, 3.4vw, 42px);
+}
+
+.about__track-head h3 {
+  font-size: clamp(1.2rem, 1.9vw, 1.42rem);
+}
+
+.about__track-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.83rem;
+  color: var(--body);
+}
+
+.about__track-note svg {
+  flex: none;
+  color: var(--gold-700);
+}
+
+.about__steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3.4vw, 48px);
+}
+
+/* Numeral, then the rule running off toward the next step. The rule is what
+   turns three columns into one sequence. */
+.about__step-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.about__step-n {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cta-ink);
+  background: linear-gradient(130deg, var(--gold-700), var(--gold-500));
+  box-shadow: 0 8px 18px -8px rgba(166, 124, 26, 0.65);
+}
+
+.about__step-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-300), var(--gold-200));
+}
+
+/* The last step has nothing to run into, so its rule fades out instead of
+   stopping dead against the section's right edge. */
+.about__steps li:last-child .about__step-rule {
+  background: linear-gradient(90deg, var(--gold-300), transparent);
+}
+
+.about__steps h4 {
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
+}
+
+.about__steps p {
+  margin-top: 7px;
+  font-size: 0.93rem;
+  color: var(--body);
 }
 
 /* ==========================================================================
@@ -1317,48 +1524,6 @@
   margin-top: 14px;
   font-size: 1rem;
   color: var(--body);
-}
-
-/* The seal is the section's credential: it says who took the photographs
-   before the visitor has to wonder. */
-.rr__seal {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 14px 20px 14px 15px;
-  border-radius: var(--r-full);
-  background: linear-gradient(120deg, var(--white), var(--gold-050));
-  box-shadow:
-    inset 0 0 0 1px var(--gold-200),
-    0 18px 40px -30px rgba(23, 18, 8, 0.4);
-}
-
-.rr__seal-mark {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: var(--gold-800);
-  background: var(--gold-100);
-  box-shadow: inset 0 0 0 1px var(--gold-200);
-}
-
-.rr__seal-copy {
-  display: grid;
-  gap: 2px;
-}
-
-.rr__seal-copy strong {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.rr__seal-copy small {
-  font-size: 0.72rem;
-  color: var(--muted);
 }
 
 /* ---------- Stage ---------- */
@@ -1487,12 +1652,20 @@
   border-bottom-right-radius: 12px;
 }
 
-/* ---------- Index ---------- */
+/* ---------- Index — an illustrated contents page ----------
+   Every row carries its own print and its own outcome, so all six cases are
+   readable at once and the open one is simply the one that is lit. Before, five
+   of the six rows showed a treatment name and nothing else, and the outcome
+   unfolded out of whichever row was open. The column is a flex stack so the
+   rows can share its full height and finish level with the print beside them. */
 
 .rr__index {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  /* The stage aligns its items to the start; this one opts back into the full
+     row height so the strip lands level with the bottom of the print. */
+  align-self: stretch;
 }
 
 .rr__bar {
@@ -1563,14 +1736,39 @@
   transform: translateY(-2px);
 }
 
+/* ---------- The spine ----------
+   Six rows sharing the column's full height, so the index finishes level with
+   the bottom of the print. `auto` tracks with the slack shared between them:
+   a fixed `1fr` each would clip a row whose caption ever ran to two lines. */
+
 .rr__list {
-  margin: 0;
-  padding: 0;
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-rows: repeat(6, auto);
+  align-content: space-between;
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.rr__list li + li {
-  border-top: 1px solid var(--line-soft);
+/* The rule the case nodes are strung on. Faded at both ends so it reads as a
+   sequence running through the index rather than as a border down its side. */
+.rr__list::before {
+  content: '';
+  position: absolute;
+  left: 13.5px;
+  top: 26px;
+  bottom: 26px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--gold-200) 7%,
+    var(--gold-300) 50%,
+    var(--gold-200) 93%,
+    transparent
+  );
 }
 
 /* Rows carry no chrome until they are the case being shown — the index reads
@@ -1578,61 +1776,59 @@
 .rr__row {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
-  gap: 16px;
+  gap: 0 16px;
   width: 100%;
-  padding: 17px 16px 17px 18px;
-  border-radius: 18px;
+  padding: 12px 15px 12px 8px;
+  border-radius: 14px;
   text-align: left;
   transition:
     background 0.5s var(--ease-soft),
     box-shadow 0.5s var(--ease-soft);
 }
 
-/* Gold rail on the active entry, drawn from the centre out. */
-.rr__row::before {
-  content: '';
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  left: 0;
-  width: 3px;
-  border-radius: var(--r-full);
-  background: var(--grad-gold);
-  transform: scaleY(0);
-  transition: transform 0.55s var(--ease);
-}
-
+/* White on the section's cream, so the open case reads as lifted off the page
+   rather than tinted on it. */
 .rr__row:hover {
-  background: var(--gold-050);
+  background: rgba(255, 255, 255, 0.62);
 }
 
 .rr__row.is-on {
-  background: linear-gradient(104deg, var(--white), var(--gold-050) 62%, var(--gold-100));
+  background: linear-gradient(104deg, var(--white), var(--gold-050) 74%);
   box-shadow:
     inset 0 0 0 1px var(--gold-200),
     0 22px 46px -34px rgba(23, 18, 8, 0.42);
 }
 
-.rr__row.is-on::before {
-  transform: scaleY(1);
+/* The node on the rule. Filled from the CTA ramp and haloed when it is the open
+   case, so the eye finds its place on the spine without reading anything. */
+.rr__node {
+  position: relative;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  /* Sits on the optical centre of the treatment line above the caption. */
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: inset 0 0 0 1.5px var(--gold-300);
+  transition:
+    background 0.4s var(--ease-soft),
+    box-shadow 0.45s var(--ease-soft),
+    transform 0.45s var(--ease);
 }
 
-.rr__row-no {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.9;
-  color: var(--champ-400);
-  font-variant-numeric: tabular-nums;
-  transition: color 0.4s var(--ease-soft);
+.rr__row:hover .rr__node {
+  box-shadow: inset 0 0 0 1.5px var(--gold-500);
 }
 
-.rr__row.is-on .rr__row-no,
-.rr__row:hover .rr__row-no {
-  color: var(--gold-700);
+.rr__row.is-on .rr__node {
+  transform: scale(1.16);
+  background: var(--grad-cta);
+  box-shadow:
+    0 0 0 5px var(--gold-100),
+    0 6px 14px -6px rgba(166, 124, 26, 0.7);
 }
 
 .rr__row-body {
@@ -1641,10 +1837,10 @@
 
 .rr__row-treat {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.63rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.9;
+  letter-spacing: 0.15em;
+  line-height: 1.6;
   text-transform: uppercase;
   color: var(--champ-600);
   transition: color 0.4s var(--ease-soft);
@@ -1654,47 +1850,44 @@
   color: var(--gold-800);
 }
 
-/* 0fr → 1fr: the outcome unfolds out of the row rather than appearing in it.
-   The inner element owns the clipping so the grid can animate freely. */
-.rr__row-open {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.55s var(--ease);
-}
-
-.rr__row.is-on .rr__row-open {
-  grid-template-rows: 1fr;
-}
-
-.rr__row-inner {
-  overflow: hidden;
-  min-height: 0;
-}
-
+/* Every row states its outcome, not just the open one — the caption used to
+   unfold out of the active row and the other five said nothing. Held back
+   rather than hidden, so the lit row still reads as the subject. */
 .rr__row-cap {
   display: block;
-  padding-top: 5px;
-  font-size: 1.02rem;
+  margin-top: 3px;
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.3;
   color: var(--ink);
-  opacity: 0;
-  transition: opacity 0.45s var(--ease-soft) 0.1s;
+  opacity: 0.55;
+  transition: opacity 0.45s var(--ease-soft);
+}
+
+.rr__row:hover .rr__row-cap {
+  opacity: 0.8;
 }
 
 .rr__row.is-on .rr__row-cap {
   opacity: 1;
 }
 
-/* ---------- Timing bar ---------- */
+/* ---------- Timing bar ----------
+   Under the open case's outcome — how long it has left, drawn on the case
+   itself rather than as a separate control. The track is present on every row
+   so a hand-over never changes a row's height; only the open one paints. */
 
 .rr__meter {
   display: block;
   height: 2px;
-  margin-top: 13px;
+  margin-top: 11px;
   border-radius: var(--r-full);
   background: var(--gold-200);
   overflow: hidden;
+}
+
+.rr__row:not(.is-on) .rr__meter {
+  background: transparent;
 }
 
 .rr__meter i {
@@ -1720,29 +1913,6 @@
   to {
     transform: scaleX(1);
   }
-}
-
-.rr__row-go {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  color: var(--gold-700);
-  background: transparent;
-  opacity: 0;
-  transform: translate(-4px, 2px);
-  transition:
-    opacity 0.4s var(--ease-soft),
-    transform 0.45s var(--ease),
-    background 0.4s var(--ease-soft);
-}
-
-.rr__row:hover .rr__row-go,
-.rr__row.is-on .rr__row-go {
-  opacity: 1;
-  transform: none;
-  background: var(--gold-100);
 }
 
 /* ---------- Foot ---------- */
@@ -1790,8 +1960,8 @@
    ========================================================================== */
 
 /* Below the width the header gives up its inline nav, the section becomes a
-   swipeable slider instead of an index plus a print. Two columns leave the
-   photograph too narrow to be the subject of the section, and a six-row list
+   swipeable slider instead of a picker plus a print. Two columns leave the
+   photograph too narrow to be the subject of the section, and a contact strip
    plus an image is a lot of vertical travel on a phone. */
 @media (max-width: 1080px) {
   .rr__stage {
@@ -1935,26 +2105,13 @@
     padding-inline: calc(50% - 43vw);
   }
 
-  .rr__seal {
-    width: 100%;
-  }
-
-  .rr__row {
-    gap: 12px;
-    padding: 15px 12px 15px 15px;
-  }
-
-  .rr__row-cap {
-    font-size: 0.95rem;
-  }
-
   .rr__foot .btn {
     width: 100%;
     justify-content: center;
   }
 }
 
-/* Motion off: no hand-off between cases, so the index becomes a plain manual
+/* Motion off: no hand-off between cases, so the strip becomes a plain manual
    picker. The bar is hidden rather than frozen — a bar that never moves looks
    broken. */
 @media (prefers-reduced-motion: reduce) {
@@ -1971,15 +2128,30 @@
    SERVICES
    ========================================================================== */
 
+/* Staggered, not flat. The middle column is pushed down by half a card, so the
+   six read as two overlapping runs rather than one 3×2 block.
+
+   The offset is a `transform`, which moves the card visually but leaves its
+   box where it was — so the dropped column hangs `--drop` past the bottom of
+   the grid with nothing reserving room for it. `padding-bottom` is that room.
+   (A negative margin here does the exact opposite: it pulls the CTA panel
+   below up into the overhang and the two overlap.) */
 .services__grid {
+  --drop: clamp(24px, 3.4vw, 52px);
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 2vw, 24px);
+  padding-bottom: var(--drop);
+}
+
+.services__grid > :nth-child(3n + 2) {
+  transform: translateY(var(--drop));
 }
 
 .svc {
   position: relative;
-  padding: clamp(24px, 2.6vw, 32px);
+  padding: clamp(26px, 2.8vw, 34px);
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
@@ -1994,6 +2166,13 @@
   transform: translateY(-6px);
   border-color: var(--gold-300);
   box-shadow: var(--sh-lg);
+}
+
+/* The hover lift has to compose with the stagger — the rule above would
+   otherwise drop a middle-column card back into line the moment it is
+   hovered, which reads as the grid twitching rather than the card rising. */
+.services__grid > :nth-child(3n + 2):hover {
+  transform: translateY(calc(var(--drop) - 6px));
 }
 
 .svc__ic {
@@ -2082,31 +2261,39 @@
    WHY US
    ========================================================================== */
 
-.why__grid {
+/* A rail of five, not a grid of cards.
+   Five boxes here read as a continuation of the six on the staggered grid
+   directly above, which is the one thing this section must not do — it is the
+   page's short list of reasons, and it should look like a list of reasons.
+
+   So: no card. Five equal columns divided by gold hairlines, sitting straight
+   on the cream ground. Equal columns work now precisely because the boxes are
+   gone — the padding a card needed was what made 220px too narrow. */
+.why__rail {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   list-style: none;
   padding: 0;
   margin: 0;
+  border-radius: var(--r-lg);
+  /* Ties the run together without drawing a box around each entry. */
+  background: linear-gradient(180deg, var(--white), transparent 78%);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .why__item {
-  padding: clamp(24px, 2.6vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: clamp(26px, 3vw, 38px) clamp(12px, 1.4vw, 20px);
   text-align: center;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  transition:
-    transform 0.5s var(--ease),
-    box-shadow 0.5s var(--ease),
-    border-color 0.4s var(--ease-soft);
 }
 
-.why__item:hover {
-  transform: translateY(-6px);
-  border-color: var(--gold-300);
-  box-shadow: var(--sh-md);
+/* Between entries only, so the ends of the rail stay open. */
+.why__item + .why__item {
+  box-shadow: inset 1px 0 0 var(--gold-200);
 }
 
 .why__ic {
@@ -2114,29 +2301,37 @@
   place-items: center;
   width: 58px;
   height: 58px;
-  margin: 0 auto 20px;
   border-radius: 50%;
   color: var(--gold-800);
   background: var(--gold-100);
   border: 1px solid var(--gold-200);
-  transition: transform 0.5s var(--ease);
+  transition:
+    transform 0.5s var(--ease),
+    color 0.4s var(--ease-soft),
+    background 0.4s var(--ease-soft);
 }
 
+/* The whole entry is the hover target, and the icon is what answers — there
+   is no card left to lift. */
 .why__item:hover .why__ic {
-  transform: translateY(-2px) scale(1.06);
+  transform: translateY(-4px) scale(1.06);
+  color: #fffdf7;
+  background: linear-gradient(125deg, var(--gold-700), var(--gold-500));
+  border-color: transparent;
 }
 
+/* Title only — the brief supplies no copy under these, so the type comes down
+   from 1.26rem: a lone heading at display size reads as a slogan rather than
+   a reason. */
 .why__item h3 {
-  margin-bottom: 10px;
-  font-size: 1.26rem;
-}
-
-.why__item p {
-  font-size: 0.89rem;
+  margin-bottom: 0;
+  font-size: 1.02rem;
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 /* ==========================================================================
-   REVIEWS — sticky score panel beside a stacked review list
+   REVIEWS — a score band across the top, reviews in a row beneath
    ========================================================================== */
 
 .stars {
@@ -2147,22 +2342,36 @@
 
 .reviews__inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(32px, 5vw, 78px);
-  align-items: start;
+  gap: clamp(30px, 4vw, 48px);
 }
 
-.reviews__aside {
-  position: sticky;
-  top: 108px;
+/* Heading left, rating and call right, on one line. */
+.reviews__band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(22px, 3vw, 40px);
+  padding-bottom: clamp(24px, 3vw, 34px);
+  border-bottom: 1px solid var(--line);
+}
+
+.reviews__band-copy {
+  max-width: 34ch;
+}
+
+.reviews__band-side {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 22px);
 }
 
 .score {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 28px;
-  padding: 20px 24px;
+  padding: 16px 22px;
   background: var(--white);
   border: 1px solid var(--gold-200);
   border-radius: var(--r-lg);
@@ -2188,33 +2397,41 @@
   color: var(--muted);
 }
 
-.reviews__intro {
-  margin: 22px 0 28px;
-  font-size: 0.94rem;
-}
-
 /* ---------- Review list ---------- */
 
+/* Side by side, not stacked. Three reviews in a column read as a transcript
+   you are meant to work through; in a row they read as three people, which is
+   the point. `auto-fit` rather than a fixed three, so a fourth review added to
+   data.js wraps instead of squeezing the row. */
+/* No `align-items` — the items stretch, which is what makes three cards of
+   unequal text length square off at the same height across the row. */
 .reviews__list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
 }
 
+/* Each review is its own card now that they sit beside each other — the rules
+   that separated them in a column have nothing to divide across a row. */
 .rev {
   position: relative;
-  padding: clamp(24px, 3vw, 34px) 0;
-  border-bottom: 1px solid var(--line);
+  padding: clamp(24px, 2.8vw, 32px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    border-color 0.4s var(--ease-soft);
 }
 
-.rev:first-child {
-  padding-top: 0;
-}
-
-.rev:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+.rev:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-300);
+  box-shadow: var(--sh-md);
 }
 
 .rev__head {
@@ -2280,8 +2497,32 @@
    FAQ
    ========================================================================== */
 
+/* Heading rail on the left, questions on the right. */
 .faq__inner {
-  max-width: 900px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+/* Sticky, because this column is genuinely shorter than the one beside it —
+   the heading and the call stay with you while the questions scroll past. */
+.faq__side {
+  position: sticky;
+  top: 108px;
+}
+
+/* The shared `.section-head` is centred and capped for a full-width block. In
+   a column it is neither: it aligns with the questions opposite it. */
+.faq__side .section-head {
+  max-width: none;
+  margin-inline: 0;
+  margin-bottom: clamp(26px, 3vw, 36px);
+  text-align: left;
+}
+
+.faq__side .rule {
+  margin-inline: 0;
 }
 
 .faq__list {
@@ -2367,18 +2608,187 @@
   opacity: 1;
 }
 
+/* In the left rail under the heading now, so it aligns with it rather than
+   centring itself under a full-width list. */
 .faq__cta {
   display: grid;
-  justify-items: center;
+  justify-items: start;
   gap: 16px;
-  margin-top: clamp(30px, 4vw, 44px);
-  text-align: center;
+  padding-top: clamp(22px, 2.6vw, 30px);
+  border-top: 1px solid var(--line);
+  text-align: left;
 }
 
 .faq__cta p {
   font-size: 1rem;
   font-weight: 500;
   color: var(--ink);
+}
+
+/* ==========================================================================
+   FINAL CTA — the closing band, between the FAQ and the footer
+
+   White, and deliberately so — it is the last thing before the footer's dark
+   bronze, and a dark band butted straight onto it made the two read as one
+   heavy block closing the page. On paper the closing ask keeps its own edges
+   and the footer's gold `border-top` is a real boundary rather than a seam
+   between two dark surfaces.
+
+   The FAQ above is `--cream`, so the sequence into the footer is
+   cream → white → bronze: each step is legible without a rule drawn anywhere.
+   ========================================================================== */
+
+.fcta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(56px, 7.5vw, 96px);
+  color: var(--body);
+  background: var(--white);
+}
+
+/* Two gold blooms, drawn in CSS — no image request. On white they are a warm
+   tint behind the closing ask rather than the section's light, so they are cut
+   right back: at the dark band's 0.26 they read as a stain on paper. */
+.fcta__bloom {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.fcta__bloom--a {
+  width: clamp(260px, 34vw, 480px);
+  height: clamp(260px, 34vw, 480px);
+  top: -32%;
+  left: -4%;
+  background: radial-gradient(circle, rgba(216, 174, 54, 0.16) 0%, transparent 70%);
+}
+
+.fcta__bloom--b {
+  width: clamp(200px, 26vw, 380px);
+  height: clamp(200px, 26vw, 380px);
+  right: -4%;
+  bottom: -34%;
+  background: radial-gradient(circle, rgba(201, 168, 120, 0.14) 0%, transparent 70%);
+}
+
+/* Heading on the left, the two actions on the right — not a centred stack.
+   Centred, the closing ask read as a third section head on a page that
+   already has five; split, it reads as a statement and its answer, which is
+   what a final CTA is. */
+.fcta__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+}
+
+/* No top margin — the heading is the first thing in the band, and the
+   section's own padding is the space above it. Colour comes from the page's
+   own `h2` rule now that the ground is paper. */
+.fcta__title {
+  max-width: 20ch;
+  font-size: clamp(1.65rem, 3.4vw, 2.65rem);
+}
+
+/* Stacked in the right-hand column: call, the fork, form. The two buttons are
+   the same size on purpose — the brief offers them as alternatives, and sizing
+   one down would answer a question it deliberately leaves open. */
+.fcta__actions {
+  display: grid;
+  justify-items: stretch;
+  gap: clamp(12px, 1.4vw, 16px);
+  min-width: clamp(240px, 26vw, 320px);
+}
+
+.fcta__btn {
+  width: 100%;
+}
+
+/* Set into a rule rather than left floating, so the pair reads as a fork with
+   two ends and not as three controls in a row. */
+.fcta__or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+/* The rules stretch to fill whatever the column leaves, so the word always
+   sits centred between two even halves however wide the buttons run. */
+.fcta__or::before,
+.fcta__or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* The page's own `.btn--ghost` now that the ground is paper — the glass
+   treatment this carried was only ever there to survive the dark band, and
+   on white it would be an invisible border around invisible text. Only the
+   secondary button's tint is set, to tie it to the gold beside it. */
+.fcta .btn--ghost {
+  background: var(--white);
+  border-color: var(--gold-300);
+}
+
+.fcta .btn--ghost:hover {
+  border-color: var(--gold-600);
+  background: var(--gold-050);
+}
+
+/* Under the heading in the left column, not centred under everything. */
+.fcta__note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: clamp(18px, 2.2vw, 24px);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.fcta__note svg {
+  flex: none;
+  color: var(--gold-600);
+}
+
+.fcta__note i {
+  font-style: normal;
+  color: var(--line);
+}
+
+/* Below the width the two columns can share a line, the band becomes a single
+   centred stack — heading, contact line, then the pair of actions. */
+@media (max-width: 860px) {
+  .fcta__inner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: clamp(24px, 4vw, 32px);
+    text-align: center;
+  }
+
+  .fcta__title {
+    margin-inline: auto;
+  }
+
+  .fcta__note {
+    justify-content: center;
+  }
+
+  .fcta__actions {
+    width: min(100%, 380px);
+    min-width: 0;
+  }
 }
 
 /* ==========================================================================
@@ -2401,12 +2811,28 @@
   color: var(--f-body);
 }
 
+/* One row of three on desktop: brand, quick links, and the two clinics sharing
+   the third track.
+
+   It was two rows — brand and links across the top, the clinics across the
+   whole of the second. The footer shell runs to 1560px, so that second row gave
+   each clinic a ~700px track to hold a 280px map, and the first row left the
+   quick links floating in about 600px of nothing. Both halves of the footer
+   were mostly empty air. Three tracks that add up to the width fix both at
+   once, and each clinic still gets more room than the map asks for. */
 .ftr__top {
   display: grid;
-  /* Middle column carries two addresses, so it gets the most room. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.62fr) minmax(0, 0.52fr);
-  gap: clamp(28px, 3.4vw, 48px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.6fr) minmax(0, 1.9fr);
+  gap: clamp(28px, 3.4vw, 44px);
   padding-bottom: clamp(26px, 3vw, 36px);
+}
+
+/* The clinics hold the third track and split it between them, so the shared
+   "Our Chennai Clinics" heading still sits over both. */
+.ftr__branch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 24px;
 }
 
 /* The wordmark is a gold gradient — on the bronze ground it reads as mud, so
@@ -2518,14 +2944,6 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--f-accent);
-}
-
-/* Drops to a single column rather than squeezing an address below its
-   comfortable measure. */
-.ftr__branch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(218px, 1fr));
-  gap: 26px 24px;
 }
 
 .ftr__branch strong {
@@ -3423,15 +3841,17 @@
      xs   ≤400px    smallest phones
    ========================================================================== */
 
+/* lg — the three tracks tighten rather than rearrange. The brand copy is the
+   one that can give width up: it is a 40ch paragraph, and the clinics need
+   theirs to keep a legible map under each address. */
 @media (max-width: 1200px) {
-  /* Sticky offset follows the shorter stuck header. */
-  .reviews__aside {
-    top: 96px;
+  .ftr__top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.52fr) minmax(0, 1.85fr);
+    gap: clamp(24px, 3vw, 38px);
   }
 
-  .ftr__top {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 0.6fr);
-    gap: clamp(24px, 3vw, 38px);
+  .ftr__branch-grid {
+    gap: 24px 20px;
   }
 }
 
@@ -3473,81 +3893,101 @@
     display: block;
   }
 
-  /* Tablet footer: brand and quick links share the first row, and the clinics
-     take the whole second row. Left in the half-width middle column they were
-     too narrow for two address blocks, so the branches — and their maps —
-     stacked into a very tall column. */
+  /* md — three tracks would put each clinic under 200px, which is narrower than
+     its own address. The footer folds to two rows instead: brand and quick
+     links across the top, the clinics across the whole of the second, ruled off
+     from the row above. The maps give up their 280px cap and fill their half of
+     the row, so the wider tracks are used rather than left as margin. */
   .ftr__top {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.46fr);
   }
 
-  .ftr__brand {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .ftr__links {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
   .ftr__branches {
     grid-column: 1 / -1;
-    grid-row: 2;
     padding-top: clamp(24px, 3vw, 34px);
     border-top: 1px solid var(--f-line);
   }
 
+  .ftr__branch-map {
+    max-width: none;
+  }
+
   /* Three services across leaves them too narrow once the drawer appears. */
+  /* Two columns, so the stagger moves from every third card to every second —
+     it is the alternation that makes the block read as two runs, and it has to
+     follow the column count or it lands on the wrong cards. */
   .services__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .booking__inner {
-    gap: clamp(30px, 4vw, 46px);
+  .services__grid > :nth-child(3n + 2) {
+    transform: none;
   }
+
+  .services__grid > :nth-child(2n) {
+    transform: translateY(var(--drop));
+  }
+
+  .services__grid > :nth-child(3n + 2):hover {
+    transform: translateY(-6px);
+  }
+
+  .services__grid > :nth-child(2n):hover {
+    transform: translateY(calc(var(--drop) - 6px));
+  }
+
 }
 
 /* Booking and About keep their two-column composition through the tablet band
    — copy on one side, form or panel on the other. Only the ratios and the gap
    tighten; they do not stack until phone width. */
 @media (min-width: 761px) and (max-width: 940px) {
-  .booking__inner {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: clamp(24px, 3.2vw, 38px);
+  /* The form keeps the wider side — it is the section's job, and the rail
+     beside it holds three short lines and a phone number. */
+  .booking__desk {
+    grid-template-columns: minmax(0, 1.26fr) minmax(0, 0.74fr);
   }
 
-  .about__inner {
-    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  .about__spread {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
     gap: clamp(26px, 3.4vw, 44px);
   }
 
-  /* The card loses most of its side padding to the narrower column, so the
+  /* Both panes lose most of their side padding to the narrower columns, so the
      two-up name/phone row needs a tighter gutter to stay comfortable. */
-  .booking__card {
+  .booking__pane {
     padding: clamp(20px, 2.6vw, 28px);
+  }
+
+  .booking__rail {
+    padding: clamp(20px, 2.6vw, 26px);
   }
 
   .form__row {
     gap: 13px;
   }
 
-  .about__panel {
+  .about__proof {
     padding: clamp(22px, 2.8vw, 30px);
-  }
-
-  /* The badge overhangs the panel by 18px on desktop. With the tablet gap down
-     to ~26px that would leave it almost touching the copy column. */
-  .about__stat {
-    right: -4px;
-    bottom: -16px;
-    padding: 14px 18px;
   }
 }
 
 @media (max-width: 940px) {
-  .why__grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Five across is too narrow here. The rail wraps to 3 + 2, and the divider
+     moves with it: it is drawn between neighbours in a row, so entries 1 and 4
+     start their rows and must lose the line on their left. The second row is
+     separated by a horizontal rule instead. */
+  .why__rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .why__item:nth-child(4) {
+    box-shadow: none;
+  }
+
+  .why__item:nth-child(4),
+  .why__item:nth-child(5) {
+    border-top: 1px solid var(--gold-200);
   }
 
   .trust__grid {
@@ -3558,65 +3998,68 @@
     border-right: 0;
   }
 
-  /* Reviews stack, so the score panel stops sticking beside the list. The
-     measure is held for the same reason as About — full-width review bodies
-     run far past a comfortable line length. */
-  .reviews__inner {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 760px;
-    margin-inline: auto;
+  /* The band's two halves stop sharing a line. The heading takes the full
+     width and the score and call drop under it, both still left-aligned —
+     centring them would leave the cards below hanging off a centred axis. */
+  .reviews__band {
+    align-items: flex-start;
   }
 
-  .reviews__aside {
-    position: static;
+  .reviews__band-copy {
+    max-width: none;
+  }
+
+  /* The rail stops being a column — heading above, questions below — and with
+     nothing beside it there is nothing left for it to stick to. */
+  .faq__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(26px, 4vw, 36px);
+  }
+
+  /* The rail dissolves: its two children become grid items of `.faq__inner`
+     directly, which is what lets the call be ordered below the questions.
+     Wrapping them in a box and ordering the box would move the heading too. */
+  .faq__side {
+    display: contents;
+  }
+
+  /* Back to the shared centred heading block, which is what a full-width
+     section head should be. */
+  .faq__side .section-head {
+    max-width: 700px;
+    margin-inline: auto;
     text-align: center;
   }
 
-  .reviews__aside .score {
-    justify-content: center;
-  }
-
-  .reviews__aside .reviews__intro {
-    max-width: 56ch;
+  .faq__side .rule {
     margin-inline: auto;
   }
 
-  /* The FAQ column no longer needs its own narrower measure. */
-  .faq__inner {
-    max-width: none;
+  /* The call moves below the questions, where it belongs once it is no longer
+     sitting beside them. `order` is safe here: it is the last thing in reading
+     order either way, so nothing about the tab sequence changes. */
+  .faq__cta {
+    order: 2;
+    justify-items: center;
+    padding-top: 0;
+    border-top: 0;
+    text-align: center;
   }
 }
 
-/* Tablet only: once the score panel sits above the list rather than beside it,
-   the full width is free — so reviews pair up two to a row instead of running
-   as one long column. Floor at 561px keeps phones on the single-column list. */
+/* Tablet only. Two reviews to a row rather than three — a third column here
+   cuts each card below a comfortable measure. Floor at 561px keeps phones on
+   the single-column list. */
 @media (min-width: 561px) and (max-width: 940px) {
-  .reviews__inner {
-    max-width: 900px;
-  }
-
   .reviews__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(22px, 3.2vw, 36px);
-  }
-
-  /* The list's rhythm comes from a rule under each item. In two columns the
-     first row needs no top padding and the last row no rule, so the block
-     still closes cleanly. */
-  .rev:nth-child(-n + 2) {
-    padding-top: 0;
-  }
-
-  .rev:nth-last-child(-n + 2) {
-    padding-bottom: 0;
-    border-bottom: 0;
   }
 }
 
 @media (max-width: 760px) {
   /* Phone width is where the two-column sections finally stack. */
-  .booking__inner,
-  .about__inner {
+  .booking__desk,
+  .about__spread {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -3624,39 +4067,69 @@
      block reads as a lot of type against a lot of empty right margin. Holding
      the column to a comfortable measure fixes that without centring a form —
      labels and fields stay left-aligned, which is how forms should read. */
-  .booking__inner {
+  .booking__desk,
+  /* The head has to take the same measure, or it runs the full section width
+     while the form below it sits in a 620px column and the two stop sharing a
+     left edge. */
+  .booking__head {
     max-width: 620px;
     margin-inline: auto;
   }
 
-  .about__media {
-    max-width: 520px;
-    margin-inline: auto;
+  /* The rail moves under the form, so its divider and its rounded corners turn
+     with it — a left border and right-hand radii belong to a pane that sits
+     beside something. The tint runs to the top edge here because the desk's
+     gold bar is no longer alongside it. */
+  .booking__rail {
+    border-left: 0;
+    border-top: 1px solid var(--gold-200);
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    background-position: 0 0;
+    background-size: 100% 100%;
   }
 
-  .about__copy {
-    text-align: center;
+  /* Left-aligned once stacked, not centred. The section is a claim, its proof
+     and a set of steps — all of it reads down a single left edge on a phone. */
+  .about__proof {
+    margin-top: clamp(30px, 6vw, 40px);
   }
 
-  /* Centred over the full section width the paragraphs run long. Holding them
-     to a measure is what keeps centred copy readable. */
-  .about__copy > p,
-  .about__sub {
-    max-width: 62ch;
-    margin-inline: auto;
+  /* One step per row, and the numeral moves beside the step's name rather than
+     above it — stacked, three numerals each sitting on their own line turn a
+     short list into a tall one. The connecting rule goes with the row: a track
+     between steps only means anything while they share a line. */
+  .about__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
   }
 
-  .about__pillars {
-    max-width: 560px;
-    margin-inline: auto;
+  .about__steps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 18px 0;
   }
 
-  .about__pillars li {
-    text-align: left;
+  .about__steps li + li {
+    border-top: 1px solid var(--gold-200);
   }
 
-  .about__stat {
-    right: 14px;
+  .about__step-top {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+
+  .about__step-n {
+    width: 40px;
+    height: 40px;
+  }
+
+  .about__step-rule {
+    display: none;
+  }
+
+  .about__steps p {
+    margin-top: 4px;
   }
 
   /* The Book CTA goes; the number stays. An unlabelled handset icon tells
@@ -3693,7 +4166,11 @@
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
-  .booking__card {
+  .booking__pane {
+    padding: 22px 18px 26px;
+  }
+
+  .booking__rail {
     padding: 22px 18px 26px;
   }
 
@@ -3707,30 +4184,14 @@
     width: 100%;
   }
 
-  /* One column, top to bottom. The tablet rule above pins brand and links to
-     `grid-row: 1`, and clearing only the column left them both still claiming
-     that row — grid then invented a second column to hold them, which is why
-     the brand text squeezed into a narrow strip with a void beside it. Every
-     placement has to be handed back, not just the column. */
+  /* One column, top to bottom — the clinics' full-width span has to be handed
+     back or it still claims a track that no longer exists. */
   .ftr__top {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .ftr__brand,
-  .ftr__links,
   .ftr__branches {
     grid-column: auto;
-    grid-row: auto;
-  }
-
-  /* Quick links ahead of the clinics: two embedded maps otherwise push them
-     past the end of a very long scroll. */
-  .ftr__links {
-    order: 1;
-  }
-
-  .ftr__branches {
-    order: 2;
   }
 
   .ftr__links ul {
@@ -3781,13 +4242,18 @@
     padding: 14px;
   }
 
-  /* One footer column, so the thumbnail can use the full measure. */
+  /* sm — one footer column, so the thumbnail takes a fixed measure again and
+     centres under its address rather than running the width of the screen. */
   .ftr__branch-map {
     max-width: 320px;
   }
 
+  /* Back to auto-fit: the two clinics keep sharing a row while a row still fits
+     two, and drop to one under each other on the narrower phones — no separate
+     breakpoint needed to decide which. */
   .ftr__branch-grid {
-    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px 22px;
   }
 }
 
@@ -3870,9 +4336,67 @@
     margin-bottom: 9px;
   }
 
-  .services__grid,
-  .why__grid {
+  /* The rail becomes a stacked list: icon beside the title rather than above
+     it, so five reasons cost five short rows instead of five tall blocks, and
+     every divider turns horizontal. */
+  .why__rail {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .why__item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 15px 18px;
+    text-align: left;
+  }
+
+  .why__item + .why__item {
+    box-shadow: inset 0 1px 0 var(--gold-200);
+  }
+
+  .why__item:nth-child(4),
+  .why__item:nth-child(5) {
+    border-top: 0;
+  }
+
+  .why__ic {
+    flex: none;
+    width: 44px;
+    height: 44px;
+  }
+
+  .why__item h3 {
+    font-size: 0.98rem;
+  }
+
+  .services__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Single column — a stagger needs a neighbour to be offset against, and with
+     one card per row it is just an uneven gap. Zeroing `--drop` removes the
+     offset and the padding that reserved room for it in one go. */
+  .services__grid {
+    --drop: 0px;
+  }
+
+  .services__grid > :nth-child(3n + 2),
+  .services__grid > :nth-child(2n) {
+    transform: none;
+  }
+
+  .services__grid > :nth-child(3n + 2):hover,
+  .services__grid > :nth-child(2n):hover {
+    transform: translateY(-6px);
+  }
+
+  /* One per row — every span and placement above goes with the track. */
+  .why__item,
+  .why__item:nth-child(4),
+  .why__item:nth-child(5) {
+    grid-column: auto;
   }
 
   /* Long CTA labels must wrap rather than run past the viewport. */
@@ -3900,7 +4424,6 @@
     line-height: 1.72;
   }
 
-  .booking__call .btn,
   .ftr__phone {
     width: 100%;
     justify-content: center;
@@ -3917,7 +4440,7 @@
   }
 
   .faq__cta .btn,
-  .reviews__aside .btn {
+  .reviews__band-side .btn {
     width: 100%;
   }
 
@@ -3929,14 +4452,8 @@
     font-size: 2.4rem;
   }
 
-  .about__stat {
-    right: 10px;
-    bottom: -16px;
-    padding: 14px 18px;
-  }
-
-  .about__stat strong {
-    font-size: 1.8rem;
+  .about__figure strong {
+    font-size: 2.4rem;
   }
 
   /* xs — the card takes the width it is given. The overlay's 20px gutter is
@@ -4052,8 +4569,15 @@
     padding-inline: 14px;
   }
 
-  .booking__card {
+  .booking__pane,
+  .booking__rail {
     padding: 20px 14px 24px;
+  }
+
+  /* The number is the widest thing in the rail; at this width the trailing
+     arrow is the first thing that can go. */
+  .booking__phone-go {
+    display: none;
   }
 
   .ftr .shell {

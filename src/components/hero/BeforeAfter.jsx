@@ -5,11 +5,16 @@ import shot3 from '../../assets/result-3-hairline-rebuilt.png'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 
 /* Three cases, imported directly rather than through data.js — the hero is the
-   eager bundle, and pulling the whole RESULTS array in would ship all six. */
+   eager bundle, and pulling the whole RESULTS array in would ship all six.
+
+   ⚠ The three files are the same hair-restoration placeholders documented on
+   RESULTS in data.js, and the labels below are the skin ones the page needs.
+   They line up with the first three RESULTS entries on purpose, so swapping in
+   the real skin photography is one change in each place, not a re-match. */
 const CASES = [
-  { src: shot1, treatment: 'Hair Fall Treatment' },
-  { src: shot2, treatment: 'Hair GFC Therapy' },
-  { src: shot3, treatment: 'Hair Transplant' },
+  { src: shot1, treatment: 'Acne Treatment' },
+  { src: shot2, treatment: 'Acne Scar Treatment' },
+  { src: shot3, treatment: 'Pigmentation Treatment' },
 ]
 
 const DWELL = 4200

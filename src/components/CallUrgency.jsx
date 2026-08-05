@@ -118,7 +118,7 @@ export default function CallUrgency({ armed }) {
           Call Now, Skip The <span className="gold-text">Wait</span>
         </h3>
         <p className="urg__sub">
-          Talk to our specialist directly — book your slot before today&apos;s offer closes.
+          Talk to our skin specialist directly — book your slot before today&apos;s offer closes.
         </p>
 
         <p className="urg__price">

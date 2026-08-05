@@ -28,19 +28,33 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
 
-    <title>Hair Clinic Chennai | Hair Fall Treatment &amp; Hair Transplant</title>
+    <!--
+      Title and description are the brief's, word for word, including the
+      "Bonittaa" spelling. The MedicalClinic block further down keeps
+      "Bonitaa Skin and Hair Care" — that field has to match the Google
+      Business listing and the two map embeds exactly or the structured data
+      stops resolving to this clinic. So the two spellings are deliberate and
+      do different jobs; if the clinic has genuinely rebranded, the listing,
+      the embeds and the schema all need changing together.
+    -->
+    <title>Skin Clinic Chennai | Acne, Pigmentation &amp; Laser Skin Treatments | Bonittaa</title>
     <meta
       name="description"
-      content="Looking for a Hair Specialist in Chennai? Get expert hair fall treatment, hair transplant, GFC therapy &amp; more at Bonitaa Skin and Hair Care — Mylapore &amp; Velachery. 4.8★ rated."
+      content="Looking for the best Skin Clinic in Chennai? Get expert Acne Treatment, Pigmentation Treatment, Hydra Facial, Laser Hair Reduction, and Anti-Ageing treatments from Bonittaa Skin &amp; Hair Care. Call now or book your consultation today."
     />
     <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="https://bonitaa.in/chennai" />
 
+    <!-- Mirrors the two tags above, so a shared link reads the same as a
+         search result rather than carrying a second version of the copy. -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Hair Clinic Chennai | Hair Fall Treatment &amp; Hair Transplant" />
+    <meta
+      property="og:title"
+      content="Skin Clinic Chennai | Acne, Pigmentation &amp; Laser Skin Treatments | Bonittaa"
+    />
     <meta
       property="og:description"
-      content="Expert hair fall treatment, hair transplant, GFC therapy and scalp care at Bonitaa Skin and Hair Care, Chennai — Mylapore &amp; Velachery."
+      content="Looking for the best Skin Clinic in Chennai? Get expert Acne Treatment, Pigmentation Treatment, Hydra Facial, Laser Hair Reduction, and Anti-Ageing treatments from Bonittaa Skin &amp; Hair Care. Call now or book your consultation today."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,8 +69,17 @@
         "@context": "https://schema.org",
         "@type": "MedicalClinic",
         "name": "Bonitaa Skin and Hair Care",
-        "description": "Hair fall treatment, hair transplant, GFC therapy and scalp care clinic in Chennai.",
+        "description": "Skin clinic in Chennai offering acne and acne scar treatment, pigmentation treatment, hydra facial, laser hair reduction, anti-ageing and skin brightening.",
         "telephone": "+91-9363700199",
+        "medicalSpecialty": "Dermatology",
+        "availableService": [
+          { "@type": "MedicalTherapy", "name": "Acne & Acne Scar Treatment" },
+          { "@type": "MedicalTherapy", "name": "Pigmentation Treatment" },
+          { "@type": "MedicalTherapy", "name": "Hydra Facial" },
+          { "@type": "MedicalTherapy", "name": "Laser Hair Reduction" },
+          { "@type": "MedicalTherapy", "name": "Anti-Ageing Treatment" },
+          { "@type": "MedicalTherapy", "name": "Skin Brightening" }
+        ],
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.8",

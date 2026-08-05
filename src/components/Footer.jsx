@@ -21,8 +21,8 @@ export default function Footer() {
           <div className="ftr__brand reveal">
             <img src={logo} alt={CLINIC.name} width="210" height="52" loading="lazy" />
             <p>
-              Chennai&apos;s trusted hair clinic — part of a 35+ branch network across Tamil Nadu, 15+
-              years of experience, 10,000+ patients treated.
+              Chennai&apos;s trusted skin clinic — part of a 35+ branch network across Tamil Nadu,
+              15+ years of experience, 10,000+ patients treated.
             </p>
             <div className="ftr__contact">
               {/* A real tel:, matching the mailto below — the number is the
@@ -41,7 +41,26 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="ftr__branches reveal" style={{ '--delay': '80ms' }}>
+          {/* Links before clinics in the source as well as on screen. The
+              footer is two rows now — brand and links across the top, the two
+              clinics across the whole of the second — and the maps are
+              focusable, so source order has to match or tabbing out of the
+              brand would jump to the bottom row and back up again. */}
+          <nav className="ftr__links reveal" style={{ '--delay': '80ms' }} aria-label="Quick links">
+            <h3 className="ftr__h">Quick Links</h3>
+            <ul>
+              {LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>
+                    <Icon name="ArrowRight" size={14} />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="ftr__branches reveal" style={{ '--delay': '140ms' }}>
             <h3 className="ftr__h">Our Chennai Clinics</h3>
             <div className="ftr__branch-grid">
               {BRANCHES.map((branch) => (
@@ -67,20 +86,6 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
-          <nav className="ftr__links reveal" style={{ '--delay': '140ms' }} aria-label="Quick links">
-            <h3 className="ftr__h">Quick Links</h3>
-            <ul>
-              {LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>
-                    <Icon name="ArrowRight" size={14} />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
         </div>
 
         <div className="ftr__legal">

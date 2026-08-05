@@ -10,14 +10,29 @@ export default function Faq() {
 
   return (
     <section className="section section--cream faq" id="faq" ref={ref}>
+      {/* Two columns: the heading and the "still have questions" call sit in a
+          sticky left rail while the questions run down the right. Centred over
+          a full-width accordion, the head was a lot of empty air above four
+          short rows — and the call underneath was below the fold by the time
+          anyone had opened one. */}
       <div className="shell faq__inner">
-        <div className="section-head reveal">
-          <span className="eyebrow">
-            <Icon name="MessageCircleQuestion" size={13} />
-            FAQ
-          </span>
-          <h2>Frequently Asked Questions</h2>
-          <div className="rule" />
+        <div className="faq__side">
+          <div className="section-head reveal">
+            <span className="eyebrow">
+              <Icon name="MessageCircleQuestion" size={13} />
+              FAQ
+            </span>
+            <h2>Frequently Asked Questions</h2>
+            <div className="rule" />
+          </div>
+
+          <div className="faq__cta reveal">
+            <p>Still have questions about your skin?</p>
+            <CallLink className="btn btn--outline btn--lg">
+              <Icon name="PhoneCall" size={18} />
+              Call the Clinic Directly
+            </CallLink>
+          </div>
         </div>
 
         <div className="faq__list">
@@ -51,14 +66,6 @@ export default function Faq() {
               </div>
             )
           })}
-        </div>
-
-        <div className="faq__cta reveal">
-          <p>Still have questions?</p>
-          <CallLink className="btn btn--outline btn--lg">
-            <Icon name="PhoneCall" size={18} />
-            Call the Clinic Directly
-          </CallLink>
         </div>
       </div>
     </section>

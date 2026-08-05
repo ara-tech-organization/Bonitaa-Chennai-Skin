@@ -162,9 +162,9 @@
   color: transparent;
 }
 
-/* Credentials — three self-contained pills rather than one pipe-separated
-   run. Each carries its own outline, so the group reflows to two lines at
-   narrow widths without any dangling separator or ragged break. */
+/* Concerns — four self-contained pills rather than one bullet-separated run.
+   Each carries its own outline, so the group reflows to two lines at narrow
+   widths without any dangling separator or ragged break. */
 .hero__sub {
   display: flex;
   flex-wrap: wrap;
@@ -217,6 +217,70 @@
   font-size: clamp(0.92rem, 0.95vw, 1rem);
   line-height: 1.7;
   color: var(--hero-soft);
+}
+
+/* ---------- Trust badges ---------- */
+
+/* Deliberately a different object to the concern pills above. Those are
+   outlined chips carrying one word each; these are a rule-separated row of
+   figure-plus-meaning, so the two rows never read as one repeated pattern the
+   eye skips over. The hairlines are drawn between items rather than around
+   them — an outline on each would put a third pill shape in the hero. */
+.hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 26px);
+  margin-top: clamp(22px, 2.6vw, 30px);
+  padding: 0;
+  list-style: none;
+}
+
+.hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Between items only, so a row that wraps never begins with a stray rule. */
+.hero__trust-item + .hero__trust-item {
+  padding-left: clamp(14px, 1.8vw, 26px);
+  border-left: 1px solid var(--hero-line);
+}
+
+.hero__trust-ic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--gold-400);
+  background: rgba(229, 197, 88, 0.1);
+  box-shadow: inset 0 0 0 1px var(--hero-line);
+}
+
+.hero__trust-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.hero__trust-copy strong {
+  font-family: var(--display);
+  font-size: clamp(0.98rem, 1.15vw, 1.18rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--hero-ink);
+}
+
+.hero__trust-copy small {
+  font-size: clamp(0.66rem, 0.72vw, 0.73rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--hero-muted);
 }
 
 /* ---------- Magnetic CTAs ---------- */
@@ -621,6 +685,28 @@
 
   .hero__title {
     font-size: clamp(1.72rem, 7.6vw, 2.3rem);
+  }
+
+  /* Three credentials cannot hold one line at this width, and a wrapped row
+     with a divider hanging off the front of line two is worse than no divider
+     at all. They become a stacked list, and the rules go with them. */
+  .hero__trust {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hero__trust-item + .hero__trust-item {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  /* Figure and label side by side once stacked — a two-line entry three times
+     over is a lot of vertical travel above the fold. */
+  .hero__trust-copy {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 7px;
   }
 
   /* Below this the pair genuinely cannot share a line. */

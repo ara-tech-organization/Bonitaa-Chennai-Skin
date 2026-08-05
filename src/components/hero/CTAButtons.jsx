@@ -23,7 +23,7 @@ export default function CTAButtons({ onBook }) {
           <span className="mbtn__icon mbtn__icon--lead">
             <PhoneCall size={16} strokeWidth={1.7} />
           </span>
-          <span className="mbtn__label">Speak to a Specialist</span>
+          <span className="mbtn__label">Call Skin Specialist</span>
         </span>
       </CallLink>
 

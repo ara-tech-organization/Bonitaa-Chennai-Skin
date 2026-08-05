@@ -23,6 +23,7 @@ const Services = lazy(() => import('./components/Services'))
 const WhyUs = lazy(() => import('./components/WhyUs'))
 const Reviews = lazy(() => import('./components/Reviews'))
 const Faq = lazy(() => import('./components/Faq'))
+const FinalCta = lazy(() => import('./components/FinalCta'))
 const Footer = lazy(() => import('./components/Footer'))
 
 /* Pushed on submit so analytics has a URL for the conversion, and popped when
@@ -94,6 +95,12 @@ export default function App() {
 
         <LazySection anchorId="faq" minHeight={620}>
           <Faq />
+        </LazySection>
+
+        {/* No anchor — nothing in the nav points here. It is the page's
+            closing ask, met by scrolling to the end rather than jumped to. */}
+        <LazySection minHeight={360}>
+          <FinalCta />
         </LazySection>
       </main>
 

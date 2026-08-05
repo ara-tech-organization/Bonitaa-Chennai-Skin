@@ -6,6 +6,11 @@ import result5 from './assets/result-5-crown-regrowth.jpeg'
 import result6 from './assets/result-6-parting-corrected.jpeg'
 
 export const CLINIC = {
+  /* The registered business name, which is what the Google listing, the maps
+     embeds and the MedicalClinic schema in index.html all carry. The client's
+     content brief spells the brand "Bonittaa" in places; that spelling is not
+     used here, because a name on the page that does not match the name on the
+     listing splits the local-SEO entity. */
   name: 'Bonitaa Skin and Hair Care',
   shortName: 'Bonitaa',
   phoneDisplay: '+91 93637 00199',
@@ -40,9 +45,9 @@ export const BRANCHES = [
 
 /* Trust metrics — the only place branch count is stated as a number */
 export const TRUST_STATS = [
-  { icon: 'CalendarCheck', value: '15+', label: 'Years of Excellence' },
-  { icon: 'ShieldCheck', value: '18+', label: 'FDA-Cleared Treatments' },
-  { icon: 'Users', value: '10,000+', label: 'Patients Treated' },
+  { icon: 'CalendarCheck', value: '15+', label: 'Years of Experience' },
+  { icon: 'ShieldCheck', value: '18+', label: 'FDA-Approved Technologies' },
+  { icon: 'Users', value: '10,000+', label: 'Happy Patients' },
   { icon: 'Star', value: '4.8', label: 'Google Rating' },
   { icon: 'MapPin', value: '35+', label: 'Branches Across Tamil Nadu' },
 ]
@@ -66,119 +71,117 @@ export const URGENCY = {
   slotsLeft: 6,
   wasPrice: '₹699',
   nowPrice: '₹99',
-  priceNote: 'Consultation today only',
+  priceNote: 'Skin consultation today only',
   windowMinutes: 15,
   /* Restated compactly here — the popup has room for three, not five. */
   proof: ['35+ Branches', '15+ Years', '10,000+ Patients'],
 }
 
+/* The six treatments from the client's content brief, in the brief's own
+   order. The copy under each title is the brief's line verbatim. */
 export const SERVICES = [
   {
-    icon: 'Stethoscope',
-    title: 'Hair Fall Treatment',
-    copy: 'Get to the root of ongoing hair fall with a scalp-first diagnostic approach.',
+    icon: 'ScanFace',
+    title: 'Acne & Acne Scar Treatment',
+    copy: 'Clear active acne and reduce acne scars with advanced skin treatments.',
   },
   {
-    icon: 'Sprout',
-    title: 'Hair Transplant',
-    copy: 'A permanent, natural-looking solution for baldness and receding hairlines.',
-  },
-  {
-    icon: 'TestTubes',
-    title: 'GFC Therapy',
-    copy: "Stimulate natural hair growth using your body's own growth factors.",
-  },
-  {
-    icon: 'Syringe',
-    title: 'Mesotherapy',
-    copy: 'Strengthen thinning hair and improve scalp health with a quick, non-invasive procedure.',
+    icon: 'Contrast',
+    title: 'Pigmentation Treatment',
+    copy: 'Reduce melasma, tanning, and uneven skin tone.',
   },
   {
     icon: 'Droplets',
-    title: 'Dandruff & Scalp Treatment',
-    copy: 'Clear flakes and irritation for a healthier scalp environment.',
+    title: 'Hydra Facial',
+    copy: 'Deep cleanse, hydrate, and brighten your skin instantly.',
   },
   {
-    icon: 'UserRound',
-    title: 'Beard Transplant',
-    copy: 'Achieve fuller, well-shaped facial hair with lasting results.',
+    icon: 'Zap',
+    title: 'Laser Hair Reduction',
+    copy: 'Safe and effective laser treatment for long-lasting hair reduction.',
+  },
+  {
+    icon: 'Hourglass',
+    title: 'Anti-Ageing Treatment',
+    copy: 'Reduce fine lines and improve skin firmness with advanced solutions.',
+  },
+  {
+    icon: 'Sun',
+    title: 'Skin Brightening',
+    copy: 'Restore healthy, glowing skin with customized treatment plans.',
   },
 ]
 
+/* Five now, not four — the brief lists five reasons, and the grid lays them out
+   3 + 2 rather than dropping one.
+
+   Titles only. The brief gives no supporting line under these, so the cards
+   carry none: an invented sentence under each would be five claims about the
+   clinic that nobody at the clinic wrote. The cards are sized for a title
+   alone — see `.why__item` in App.css. */
 export const WHY_US = [
-  {
-    icon: 'BadgeCheck',
-    title: 'Certified Trichologists',
-    copy: 'Every treatment plan is designed and reviewed by qualified specialists.',
-  },
-  {
-    icon: 'ShieldCheck',
-    title: 'FDA-Approved Treatments',
-    copy: '18+ modern hair restoration options backed by research.',
-  },
-  {
-    icon: 'ClipboardList',
-    title: 'Personalised Plans',
-    copy: 'No generic packages — every plan is built around your scalp and hair type.',
-  },
-  {
-    icon: 'Star',
-    title: '4.8★ Rated Clinic',
-    copy: 'Part of a trusted network with 35+ clinics across Tamil Nadu.',
-  },
+  { icon: 'BadgeCheck', title: 'Experienced Skin Specialists' },
+  { icon: 'Microscope', title: 'Advanced Skin Analysis' },
+  { icon: 'ClipboardList', title: 'Personalized Treatment Plans' },
+  { icon: 'ShieldCheck', title: 'FDA-Approved Technologies' },
+  { icon: 'MapPin', title: 'Trusted Across Tamil Nadu' },
 ]
 
+/**
+ * ⚠ PLACEHOLDER PHOTOGRAPHS — these six files are hair-restoration cases
+ * carried over from the previous version of this page, kept in place because
+ * no skin before/after set has been supplied yet. The client's brief says as
+ * much: "Web Team: Add 4–6 optimized before & after images."
+ *
+ * The captions and treatment labels below are the skin ones the page now
+ * needs, so the section reads correctly the moment real photographs land — but
+ * until they do, each label describes a result its picture does not show.
+ * Swap the six imports at the top of this file before launch.
+ */
 export const RESULTS = [
-  { src: result1, caption: 'Crown density restored', treatment: 'Hair Fall Treatment' },
-  { src: result2, caption: 'Hairline and mid-scalp regrowth', treatment: 'Hair GFC Therapy' },
-  { src: result3, caption: 'Receding hairline rebuilt', treatment: 'Hair Transplant' },
-  { src: result4, caption: 'Thinning crown filled in', treatment: 'GFC Therapy' },
-  { src: result5, caption: 'Visible density at the crown', treatment: 'Hair Fall Treatment' },
-  { src: result6, caption: 'Widening parting corrected', treatment: 'Mesotherapy' },
+  { src: result1, caption: 'Active acne cleared', treatment: 'Acne Treatment' },
+  { src: result2, caption: 'Acne scarring smoothed', treatment: 'Acne Scar Treatment' },
+  { src: result3, caption: 'Melasma visibly lightened', treatment: 'Pigmentation Treatment' },
+  { src: result4, caption: 'Even tone restored', treatment: 'Skin Brightening' },
+  { src: result5, caption: 'Instant glow and hydration', treatment: 'Hydra Facial' },
+  { src: result6, caption: 'Fine lines softened', treatment: 'Anti-Ageing Treatment' },
 ]
 
+/* Google reviews supplied by the clinic, quoted as written. Nothing here is
+   paraphrased or tidied — an edited review is no longer the patient's. */
 export const REVIEWS = [
   {
-    name: 'Dillip Maharana',
-    treatment: 'GFC Treatment',
-    text: 'I visited this clinic for GFC treatment and had a good overall experience. The doctor explained the treatment in detail and answered all my questions clearly. The staff were also very polite, supportive, and professional throughout the process. I felt comfortable and well taken care of.',
+    name: 'Murali',
+    treatment: 'PRP Treatment',
+    text: "My PRP treatment journey is ongoing, and I'm already highly impressed with the early results, particularly the reduced hair fall and initial improvements in thickness.",
   },
   {
-    name: 'Prakash Sekar',
-    treatment: 'Hair GFC — 3 Sessions',
-    text: 'Completed 3 Hair GFC sessions and the treatment process was smooth and professional. Noticed reduced hair fall and improved hair quality after the sessions. Friendly doctors and staff, good guidance, and excellent patient care.',
-  },
-  {
-    name: 'Seerin',
-    treatment: 'Q-Switch & Facial',
-    text: 'I visited Bonitaa for a Q-switch treatment and a facial, and the experience was amazing! The ambience is super clean, calm and very welcoming. The staff are really polite, friendly and professional — they explain every step clearly and make you feel very comfortable throughout the process.',
-  },
-  {
-    name: 'Rajan Gomes',
+    name: 'Dharsini',
     treatment: 'Hydra Facial',
-    text: 'I had a Hydra Facial at Bonitaa Skin and Hair Care and the experience was excellent. My skin felt deeply cleansed, hydrated, and instantly brighter after the session. The procedure was gentle and relaxing, and everything was explained clearly. The clinic maintains good hygiene and professionalism.',
+    text: "I had an good HydraFacial experience with visible glow and hydration after the session. Overall, it's a reliable choice for skin rejuvenation with noticeable results.",
+  },
+  {
+    name: 'Sharmila',
+    treatment: 'Laser Treatment',
+    text: "I'm genuinely impressed with the quality of service and would highly recommend Bonitaa for laser treatments.",
   },
 ]
 
 export const FAQS = [
   {
-    q: 'Is hair transplant a permanent solution?',
-    a: 'Yes — transplanted hair follicles are resistant to hair loss and typically grow naturally for a lifetime.',
+    q: 'Which treatment is right for my skin?',
+    a: 'Our specialists recommend the best treatment after a detailed skin analysis.',
   },
   {
-    q: 'How soon will I see results from hair fall treatment?',
-    a: 'Most patients start noticing visible improvement within 3 to 4 months, depending on the treatment and severity.',
+    q: 'Do you treat acne and acne scars?',
+    a: 'Yes. We offer advanced treatments for acne, acne scars, and pigmentation.',
   },
   {
-    q: 'What happens during the first consultation?',
-    a: 'Our specialist examines your scalp and hair condition, discusses your history and concerns, and recommends a treatment plan suited to you.',
+    q: 'Is Laser Hair Reduction safe?',
+    a: 'Yes. Our treatments are performed using advanced technology by trained professionals.',
   },
   {
-    q: 'Are your treatments safe?',
-    a: 'Yes — all treatments used at our clinic are FDA-approved and performed by certified professionals.',
-  },
-  {
-    q: 'Do you have more than one clinic in Chennai?',
-    a: "Yes — we're part of a network of 35+ clinics across Tamil Nadu, with locations in Mylapore and Velachery here in Chennai. Call us and we'll point you to the one nearest you.",
+    q: 'How do I book an appointment?',
+    a: 'Simply call us or fill out the consultation form, and our Chennai team will contact you.',
   },
 ]

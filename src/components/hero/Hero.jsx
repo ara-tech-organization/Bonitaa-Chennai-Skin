@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
 import { scrollToBooking } from '../../callStore'
+import Icon from '../Icon'
 import BeforeAfter from './BeforeAfter'
 import CTAButtons from './CTAButtons'
-import { EYEBROW, HEADLINE, LEDE, SUBHEAD } from './heroContent'
+import { EYEBROW, HEADLINE, LEDE, SUBHEAD, TRUST_BADGES } from './heroContent'
 import './hero.css'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -52,8 +53,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.52, ease }}
           >
-            {/* Dividers are drawn in CSS on adjacent siblings, so a wrapped
-                line never begins with an orphaned separator. */}
+            {/* Each concern carries its own outline, so the group reflows to a
+                second line without any dangling separator. */}
             {SUBHEAD.map((part) => (
               <span className="hero__sub-item" key={part}>
                 {part}
@@ -70,12 +71,41 @@ export default function Hero() {
             {LEDE}
           </motion.p>
 
+          {/* The brief's trust badges, given their own row rather than folded
+              in with the concern pills above — a figure and its meaning read
+              as one unit, which a bare pill cannot carry. A list, because
+              that is what three parallel credentials are. */}
+          <motion.ul
+            className="hero__trust"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease }}
+          >
+            {TRUST_BADGES.map((badge) => (
+              <li className="hero__trust-item" key={badge.label}>
+                <span className="hero__trust-ic" aria-hidden="true">
+                  <Icon
+                    name={badge.icon}
+                    size={15}
+                    /* Only the rating reads as a mark rather than a glyph —
+                       a hollow star beside "4.8" looks like an empty one. */
+                    fill={badge.icon === 'Star' ? 'currentColor' : 'none'}
+                  />
+                </span>
+                <span className="hero__trust-copy">
+                  <strong>{badge.value}</strong>
+                  <small>{badge.label}</small>
+                </span>
+              </li>
+            ))}
+          </motion.ul>
+
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.74, ease }}
+            transition={{ duration: 0.8, delay: 0.8, ease }}
           >
-            {/* "Speak to a Specialist" leads, per the brief. It is a tel: link
+            {/* "Call Skin Specialist" leads, per the brief. It is a tel: link
                 that routes through the call confirmation modal on click. */}
             <CTAButtons onBook={scrollToBooking} />
           </motion.div>

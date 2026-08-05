@@ -4,25 +4,25 @@ import { normalizePhone, submitLead, validatePhone } from '../submitLead'
 import DatePicker from './DatePicker'
 import Icon from './Icon'
 
-/* `date` is a YYYY-MM-DD string. It replaced a Morning/Afternoon/Evening
-   choice — a date is a commitment the clinic can actually schedule against,
-   where a time-of-day band still needed a call to pin down.
-
-   `city` is free text and sits alongside `branch`, which they are not a
-   substitute for: branch is which of the two clinics the patient will attend,
-   city is where they are travelling from. Both variants collect it. */
-const EMPTY = { name: '', phone: '', city: '', branch: '', date: '' }
-
+/**
+ * Name, mobile number, Chennai branch, preferred appointment date.
+ *
+ * `date` is a YYYY-MM-DD string chosen from the calendar — a day the clinic
+ * can actually schedule against. It replaces the Morning/Afternoon/Evening
+ * callback band the form briefly asked for instead: a band said when to ring,
+ * a date says when to be seen, and the exact time is confirmed on the call.
+ */
+const EMPTY = { name: '', phone: '', branch: '', date: '' }
 
 /**
- * The one enquiry form on the page. Both variants ask the same five questions;
+ * The one enquiry form on the page. Both variants ask the same four questions;
  * `variant="compact"` only tightens the popup's spacing and labels.
  * `idPrefix` keeps input ids unique between the two instances.
  */
 export default function LeadForm({
   variant = 'full',
   idPrefix = 'lead',
-  submitLabel = 'Book Your Slot',
+  submitLabel = 'Book Appointment',
   /* Lets a host know the enquiry landed — the exit popup uses it to decide
      whether a follow-up is appropriate. */
   onSuccess,
@@ -38,18 +38,17 @@ export default function LeadForm({
   }
 
   const field = (key) => (e) => set(key, e.target.value)
-  /* The custom dropdown hands back a value, not an event. */
+  /* The calendar hands back a value, not an event. */
   const pick = (key) => (next) => set(key, next)
 
+  /* Every field is required, in both variants. The popup used to skip one of
+     them and posted it empty, which the handler rejected — so every popup lead
+     failed while the booking form went through. */
   const validate = () => {
     const next = {}
     if (values.name.trim().length < 2) next.name = 'Please enter your name'
     if (!validatePhone(values.phone)) next.phone = 'Enter a valid 10-digit mobile number'
-    if (values.city.trim().length < 2) next.city = 'Please enter your city or area'
     if (!values.branch) next.branch = 'Please choose a branch'
-    /* Both variants now. The popup used to skip it, which meant it posted an
-       empty date — and the handler requires one, so every popup lead was
-       rejected while the booking form went through. */
     if (!values.date) next.date = 'Pick a date that suits you'
     return next
   }
@@ -116,7 +115,7 @@ export default function LeadForm({
         </label>
 
         <label className="field" htmlFor={`${idPrefix}-phone`}>
-          <span className="field__label">Phone Number</span>
+          <span className="field__label">Mobile Number</span>
           <span className="field__wrap">
             <Icon name="Phone" size={17} />
             <span className="field__prefix" aria-hidden="true">
@@ -141,32 +140,12 @@ export default function LeadForm({
         </label>
       </div>
 
-      <label className="field" htmlFor={`${idPrefix}-city`}>
-        <span className="field__label">City / Area</span>
-        <span className="field__wrap">
-          <Icon name="Navigation" size={17} />
-          <input
-            id={`${idPrefix}-city`}
-            name="city"
-            type="text"
-            /* Shorter prompt in the popup — three example areas overflow the
-               narrower field and truncate mid-word. */
-            placeholder={compact ? 'e.g. Velachery' : 'e.g. Velachery, Adyar, Tambaram'}
-            autoComplete="address-level2"
-            value={values.city}
-            onChange={field('city')}
-            aria-invalid={Boolean(errors.city)}
-          />
-        </span>
-        {errors.city && <span className="field__error">{errors.city}</span>}
-      </label>
-
       {/* Two clinics — a dropdown would hide both behind a click to save no
           space at all. As badges they are visible, comparable and one tap. */}
       <fieldset className="field field--choice">
         <legend className="field__label">
           <Icon name="MapPin" size={15} />
-          Select Branch
+          Select Chennai Branch
         </legend>
 
         <div className="badges">
