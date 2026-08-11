@@ -1571,7 +1571,10 @@
      The plate has no intrinsic size of its own — if an ancestor ever sizes to
      fit-content it collapses to nothing and takes the photograph with it. */
   width: 100%;
-  aspect-ratio: 970 / 1280;
+  /* Square, matching the sources. The clinic's before/after files are square
+     composites — a portrait plate letterboxed every one of them, so the print
+     sat in a band of empty paper top and bottom. */
+  aspect-ratio: 1 / 1;
   border-radius: 26px;
   overflow: hidden;
   isolation: isolate;
@@ -1741,15 +1744,17 @@
 }
 
 /* ---------- The spine ----------
-   Six rows sharing the column's full height, so the index finishes level with
-   the bottom of the print. `auto` tracks with the slack shared between them:
-   a fixed `1fr` each would clip a row whose caption ever ran to two lines. */
+   The rows share the column's full height, so the index finishes level with the
+   bottom of the print. Implicit `auto` tracks with the slack shared between
+   them: a fixed `1fr` each would clip a row whose caption ever ran to two
+   lines, and a hard-coded track count would leave an empty row hanging off the
+   bottom the moment RESULTS holds a different number of cases. */
 
 .rr__list {
   position: relative;
   flex: 1;
   display: grid;
-  grid-template-rows: repeat(6, auto);
+  grid-auto-rows: auto;
   align-content: space-between;
   list-style: none;
   padding: 0;
@@ -2105,12 +2110,12 @@
    through. The cap rises and the neighbours are pushed back much harder, so
    there is one card being looked at and two hints that more exist.
 
-   The cap is what stops it there. These plates are portrait (970 × 1280), so
-   width buys height fast — a slide sized to the phone's 86vw would be over
-   800px tall on an iPad and could not be seen in one screen. */
+   The cap is what stops it growing further. These plates are square, so width
+   buys height one for one — at the phone's 86vw a slide would be 660px tall on
+   an iPad before its caption, more than a landscape screen has to give. */
 @media (min-width: 561px) and (max-width: 1080px) {
   .rr__slide {
-    flex-basis: min(62vw, 470px);
+    flex-basis: min(66vw, 520px);
     /* Further back and fainter than the phone's neighbours, because at this
        width they have the room to compete and on a phone they do not. */
     opacity: 0.3;
@@ -2126,7 +2131,7 @@
      to — it has to track `flex-basis` or the first and last cases stop landing
      in the middle of the screen. */
   .rr__track {
-    padding-inline: calc(50% - min(31vw, 235px));
+    padding-inline: calc(50% - min(33vw, 260px));
   }
 }
 

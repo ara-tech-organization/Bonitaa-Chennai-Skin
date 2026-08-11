@@ -1,9 +1,8 @@
-import result1 from './assets/result-1-crown-density.jpeg'
-import result2 from './assets/result-2-hairline-regrowth.png'
-import result3 from './assets/result-3-hairline-rebuilt.png'
-import result4 from './assets/result-4-thinning-crown.jpeg'
-import result5 from './assets/result-5-crown-regrowth.jpeg'
-import result6 from './assets/result-6-parting-corrected.jpeg'
+import result1 from './assets/result-1-pigmentation-evened.jpg'
+import result2 from './assets/result-2-acne-settled.jpg'
+import result3 from './assets/result-3-acne-scars-smoothed.jpg'
+import result4 from './assets/result-4-pitted-scars-smoothed.jpg'
+import result5 from './assets/result-5-texture-refined.jpg'
 
 export const CLINIC = {
   /* The registered business name, which is what the Google listing, the maps
@@ -128,23 +127,34 @@ export const WHY_US = [
 ]
 
 /**
- * ⚠ PLACEHOLDER PHOTOGRAPHS — these six files are hair-restoration cases
- * carried over from the previous version of this page, kept in place because
- * no skin before/after set has been supplied yet. The client's brief says as
- * much: "Web Team: Add 4–6 optimized before & after images."
+ * The clinic's own skin before/after photographs. They replace six
+ * hair-restoration cases carried over from the previous version of this page,
+ * every one of which was captioned with a skin result its picture did not
+ * show. Five cases, which is inside the brief's "Add 4–6 optimized before &
+ * after images".
  *
- * The captions and treatment labels below are the skin ones the page now
- * needs, so the section reads correctly the moment real photographs land — but
- * until they do, each label describes a result its picture does not show.
- * Swap the six imports at the top of this file before launch.
+ * Optimised on the way in: the supplied files were 7620 × 7620 at 6–9 MB each,
+ * around 38 MB for the set. They are 1400px JPEGs now, 471 KB all told, which
+ * is what makes them shippable in a section that shows one and preloads none.
+ *
+ * ⚠ THE TREATMENT LABELS ARE INFERRED, NOT SUPPLIED. Each caption describes
+ * only what its own photograph visibly shows, but the treatment that produced
+ * it is not something a picture can state — these are read off the visible
+ * concern. Have the clinic confirm each one before launch: naming the wrong
+ * treatment beside a real patient's result is a clinical claim, not a caption.
+ *
+ * One further case was supplied (70.jpg) and is deliberately not here: its two
+ * halves could not be told apart as before and after — the right-hand image
+ * shows more pigmentation than the left — so any caption would have asserted a
+ * direction the photograph does not support. Add it back once the clinic says
+ * which half is which.
  */
 export const RESULTS = [
-  { src: result1, caption: 'Active acne cleared', treatment: 'Acne Treatment' },
-  { src: result2, caption: 'Acne scarring smoothed', treatment: 'Acne Scar Treatment' },
-  { src: result3, caption: 'Melasma visibly lightened', treatment: 'Pigmentation Treatment' },
-  { src: result4, caption: 'Even tone restored', treatment: 'Skin Brightening' },
-  { src: result5, caption: 'Instant glow and hydration', treatment: 'Hydra Facial' },
-  { src: result6, caption: 'Fine lines softened', treatment: 'Anti-Ageing Treatment' },
+  { src: result1, caption: 'Even tone restored', treatment: 'Pigmentation Treatment' },
+  { src: result2, caption: 'Inflamed acne settled', treatment: 'Acne Treatment' },
+  { src: result3, caption: 'Acne scarring smoothed', treatment: 'Acne Scar Treatment' },
+  { src: result4, caption: 'Pitted scarring softened', treatment: 'Acne Scar Treatment' },
+  { src: result5, caption: 'Skin texture refined', treatment: 'Acne Scar Treatment' },
 ]
 
 /* Google reviews supplied by the clinic, quoted as written. Nothing here is

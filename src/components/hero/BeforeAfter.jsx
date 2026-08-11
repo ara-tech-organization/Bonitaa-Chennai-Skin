@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
-import shot1 from '../../assets/result-1-crown-density.jpeg'
-import shot2 from '../../assets/result-2-hairline-regrowth.png'
-import shot3 from '../../assets/result-3-hairline-rebuilt.png'
+import shot1 from '../../assets/result-1-pigmentation-evened.jpg'
+import shot2 from '../../assets/result-2-acne-settled.jpg'
+import shot3 from '../../assets/result-3-acne-scars-smoothed.jpg'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 
 /* Three cases, imported directly rather than through data.js — the hero is the
-   eager bundle, and pulling the whole RESULTS array in would ship all six.
+   eager bundle, and pulling the whole RESULTS array in would ship every case.
 
-   ⚠ The three files are the same hair-restoration placeholders documented on
-   RESULTS in data.js, and the labels below are the skin ones the page needs.
-   They line up with the first three RESULTS entries on purpose, so swapping in
-   the real skin photography is one change in each place, not a re-match. */
+   They are the first three RESULTS entries, file for file and label for label,
+   so the two stay in step: change one and the same change is made in the other,
+   never a re-match. The treatment names carry the same caveat documented on
+   RESULTS — they are read off the visible concern, not supplied by the clinic. */
 const CASES = [
-  { src: shot1, treatment: 'Acne Treatment' },
-  { src: shot2, treatment: 'Acne Scar Treatment' },
-  { src: shot3, treatment: 'Pigmentation Treatment' },
+  { src: shot1, treatment: 'Pigmentation Treatment' },
+  { src: shot2, treatment: 'Acne Treatment' },
+  { src: shot3, treatment: 'Acne Scar Treatment' },
 ]
 
 const DWELL = 4200

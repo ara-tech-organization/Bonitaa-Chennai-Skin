@@ -466,7 +466,9 @@
 .ba__frame {
   position: relative;
   z-index: 2;
-  aspect-ratio: 4 / 5;
+  /* Square, matching the sources — the clinic's before/after files are square
+     composites, and a 4:5 frame letterboxed every one of them. */
+  aspect-ratio: 1 / 1;
   /* Explicit, so the ratio always has a definite width to resolve against —
      the frame carries no intrinsic size of its own. */
   width: 100%;
