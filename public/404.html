@@ -7,7 +7,11 @@
          out of the index: a 404 must never be treated as a real page. -->
     <meta name="robots" content="noindex, follow" />
     <title>Page not found | Bonitaa Skin and Hair Care</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Absolute, and it includes the folder the site is deployed into. This
+         file sits in public/ and is copied verbatim — Vite never rewrites it,
+         so it cannot pick the base up the way index.html does. It has to match
+         `base` in vite.config.js by hand. -->
+    <link rel="icon" type="image/png" href="/skin/favicon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -131,7 +135,7 @@
       <div class="rule"></div>
 
       <div class="actions">
-        <a class="primary" href="/">Back to homepage</a>
+        <a class="primary" href="/skin/">Back to homepage</a>
         <a class="secondary" href="tel:+919363700199">Call +91 93637 00199</a>
       </div>
 

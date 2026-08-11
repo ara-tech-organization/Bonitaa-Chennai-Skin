@@ -18,9 +18,15 @@
 # falls through to Apache, which finds no file and serves 404.html with a real
 # 404 status. Add a path here only when the app can actually route to it.
 
+# ⚠ THE PATHS BELOW MUST MATCH `base` IN vite.config.js. The build writes asset
+# URLs under that base; these rules answer requests under it. Change one without
+# the other and the site either 404s its bundle (white page) or 404s its paths.
+# Currently /skin/ — this deploys into a `skin/` folder beside the hair site's
+# `hair/`. Moving it to public_html or a subdomain root means `/` in both files.
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
+  RewriteBase /skin/
 
   # Anything that exists on disk wins — assets, images, and the PHP handler.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -33,11 +39,11 @@
 
   # The section ids the nav writes with pushState (see useCleanAnchors), plus
   # the path the lead form pushes on success.
-  RewriteRule ^(top|about|results|treatments|reviews|faq|book|thank-you)/?$ /index.html [L]
+  RewriteRule ^(top|about|results|treatments|reviews|faq|book|thank-you)/?$ /skin/index.html [L]
 </IfModule>
 
 # Everything else. Without this Apache answers with its own bare error page.
-ErrorDocument 404 /404.html
+ErrorDocument 404 /skin/404.html
 
 # Hashed filenames from the build are safe to cache hard; index.html must not
 # be, or a deploy leaves visitors on the previous bundle.
