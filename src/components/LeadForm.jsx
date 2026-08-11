@@ -12,7 +12,7 @@ import Icon from './Icon'
  * callback band the form briefly asked for instead: a band said when to ring,
  * a date says when to be seen, and the exact time is confirmed on the call.
  */
-const EMPTY = { name: '', phone: '', branch: '', date: '' }
+const EMPTY = { name: '', phone: '', city: '', branch: '', date: '' }
 
 /**
  * The one enquiry form on the page. Both variants ask the same four questions;
@@ -48,6 +48,7 @@ export default function LeadForm({
     const next = {}
     if (values.name.trim().length < 2) next.name = 'Please enter your name'
     if (!validatePhone(values.phone)) next.phone = 'Enter a valid 10-digit mobile number'
+    if (values.city.trim().length < 2) next.city = 'Please enter your area'
     if (!values.branch) next.branch = 'Please choose a branch'
     if (!values.date) next.date = 'Pick a date that suits you'
     return next
@@ -139,6 +140,29 @@ export default function LeadForm({
           {errors.phone && <span className="field__error">{errors.phone}</span>}
         </label>
       </div>
+
+      {/* Where the visitor actually is, which the branch cannot answer: the two
+          clinics are fixed points, and knowing someone is in Tambaram is what
+          tells the desk which of them to offer. It is also the `city` the mail
+          handler requires — that was being sent as the constant "Chennai",
+          which satisfied the handler and told the clinic nothing. */}
+      <label className="field" htmlFor={`${idPrefix}-city`}>
+        <span className="field__label">City / Area</span>
+        <span className="field__wrap">
+          <Icon name="Navigation" size={17} />
+          <input
+            id={`${idPrefix}-city`}
+            name="city"
+            type="text"
+            autoComplete="address-level2"
+            placeholder="e.g. Velachery, Adyar, Tambaram"
+            value={values.city}
+            onChange={field('city')}
+            aria-invalid={Boolean(errors.city)}
+          />
+        </span>
+        {errors.city && <span className="field__error">{errors.city}</span>}
+      </label>
 
       {/* Two clinics — a dropdown would hide both behind a click to save no
           space at all. As badges they are visible, comparable and one tap. */}

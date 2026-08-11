@@ -115,10 +115,32 @@ export default function useSmoothScroll(enabled = true) {
  */
 const BASE = import.meta.env.BASE_URL
 
+/*
+ * Paths that do not name an element id directly.
+ *
+ * `/consultation` is the address every Book button writes. It names what the
+ * visitor came to do rather than the markup it lands on — and it lands on the
+ * form card, not the section: stacked on a phone the booking section opens with
+ * its heading, so `#book` would arrive with the form still a screen below.
+ */
+const PATH_ALIASES = { consultation: 'book-form' }
+
 /** Rewrites the address bar without navigating or touching the scroll. */
 function setPath(path) {
   if (window.location.pathname === path) return
   window.history.pushState({}, '', path + window.location.search)
+}
+
+/**
+ * Rewrites the address bar to a named part of this page — `setSectionPath()`
+ * for the top, `setSectionPath('consultation')` for the booking form.
+ *
+ * Exported so the Book buttons can write their own path without rebuilding the
+ * base themselves. They are ordinary buttons rather than links, so nothing
+ * else would put them in the address bar.
+ */
+export function setSectionPath(name = '') {
+  setPath(BASE + name)
 }
 
 /**
@@ -185,13 +207,13 @@ export function useCleanAnchors() {
     /* The section name with the mount point taken off the front, so `/about`
        and `/Bonitaa-Chennai-Skin/about` both resolve to `about`. */
     const withinApp = pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname.slice(1)
-    const id = hash ? hash.slice(1) : withinApp.replace(/\/$/, '')
-    if (!id) return
+    const name = hash ? hash.slice(1) : withinApp.replace(/\/$/, '')
+    if (!name) return
 
-    const target = document.getElementById(id)
+    const target = document.getElementById(PATH_ALIASES[name] ?? name)
     if (!target) return
 
-    if (hash) window.history.replaceState(null, '', `${BASE}${id}`)
+    if (hash) window.history.replaceState(null, '', `${BASE}${name}`)
     /* After paint, so the observer-driven sections have had their first pass
        and the scroll lands on real content rather than a reserved height. */
     requestAnimationFrame(() => scrollToSection(target))

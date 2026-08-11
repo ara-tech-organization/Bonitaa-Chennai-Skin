@@ -3287,7 +3287,11 @@
    nowhere near each other in width and hit exactly the same wall. These fire
    on height alone, so short laptop windows are covered too. */
 
-@media (max-height: 900px) {
+/* The popup's two compaction steps, both raised by roughly the height of the
+   City / Area field it gained — the point at which the card stops fitting moved
+   up with it, so the thresholds that answer that have to move too. The overlay
+   scrolls either way; this is about not having to. */
+@media (max-height: 980px) {
   /* The sub-line repeats what the submit button and the confidentiality note
      both already say, so it is the first thing that can go. */
   .invite__sub {
@@ -3312,7 +3316,7 @@
   }
 }
 
-@media (max-height: 740px) {
+@media (max-height: 820px) {
   /* The ✕ in the corner does the same job, so the link is duplication. */
   .invite__dismiss {
     display: none;
@@ -4398,6 +4402,43 @@
 @media (max-width: 560px) {
   .form__row {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* ---------- The form, tightened for a phone ----------
+     Five questions stacked one per row is a tall card, and the City / Area
+     field made it taller than the screen. Nothing is removed — every question
+     is still asked — the rhythm just closes up: the gaps between fields, the
+     air under each label, and the height of the boxes themselves. Worth about
+     a fifth of the card, which is the difference between the submit button
+     being on screen with the last field and being below it. */
+  .form {
+    gap: 13px;
+  }
+
+  .field__label {
+    margin-bottom: 5px;
+    font-size: 0.74rem;
+  }
+
+  .field__wrap input,
+  .pick__trigger {
+    padding-block: 11px;
+  }
+
+  .badge {
+    padding: 10px 12px;
+  }
+
+  .form__note {
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  /* The one control that keeps its height: it is the thing being reached for,
+     and a cramped submit on a phone is the wrong economy. Only its side
+     padding goes, which it does not need at full width. */
+  .form .btn--lg {
+    padding: 15px 22px;
   }
 
   /* Two badges side by side leave the clinic name wrapping mid-word at this

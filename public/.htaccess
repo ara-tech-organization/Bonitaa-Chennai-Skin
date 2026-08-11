@@ -39,7 +39,7 @@
 
   # The section ids the nav writes with pushState (see useCleanAnchors), plus
   # the path the lead form pushes on success.
-  RewriteRule ^(top|about|results|treatments|reviews|faq|book|thank-you)/?$ /skin/index.html [L]
+  RewriteRule ^(top|about|results|treatments|reviews|faq|book|consultation|thank-you)/?$ /skin/index.html [L]
 </IfModule>
 
 # Everything else. Without this Apache answers with its own bare error page.

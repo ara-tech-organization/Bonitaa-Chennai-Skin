@@ -65,22 +65,13 @@ const SOURCE_LABEL = {
 }
 
 /**
- * Every branch on this page is a Chennai branch — Mylapore and Velachery, both
- * in BRANCHES — so the handler's `city` is a constant rather than a question.
- * Asking for it would be asking a visitor to retype the one fact the page has
- * said in its heading, its title tag and the name of the field above it.
- */
-const CITY = 'Chennai'
-
-/**
  * Maps the form's answers onto the handler's payload.
  *
  * The shape is the handler's, exactly: {name, phone, city, branch, date,
  * source}. It is not the form's shape and must not be reduced to it — a key
  * the handler requires and does not receive is rejected as "Missing required
  * fields", and rejected *silently*, because the visitor is thanked before the
- * answer arrives (see ACK_MS below). `city` is the case in point: it is not a
- * form field, so it is supplied here.
+ * answer arrives (see ACK_MS below).
  *
  * Nothing else is sent. `email`, `time`, `treatment` and `message` are gone:
  * the form asks for a phone rather than an email, because the page promises a
@@ -94,7 +85,7 @@ function toApiPayload(lead) {
   return {
     name: lead.name ?? '',
     phone: lead.phone ?? '',
-    city: CITY,
+    city: lead.city?.trim() ?? '',
     branch: lead.branch ?? '',
     date: lead.date ?? '',
     source: SOURCE_LABEL[lead.source] ?? lead.source ?? 'Website Form',
