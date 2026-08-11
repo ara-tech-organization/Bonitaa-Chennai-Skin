@@ -6,11 +6,16 @@
  * DELIVERY — posts to the clinic's own mail handler, which sends the notifying
  * email and forwards a row to the Google Sheet.
  *
- * Absolute, not relative. A relative path only works when the site is served
- * from the same host as the PHP, and it is not: the build is a static bundle
- * (GitHub Pages / Vercel) with no PHP behind it, so `/api/email.php` there is
- * a 404 — and so is `/api` on the dev server. Cross-origin is what the handler
- * expects anyway; it answers OPTIONS and sends `Access-Control-Allow-Origin`.
+ * It lives inside the site's own folder — chennaiclinic.bonitaa.co.in/skin/ —
+ * so on Hostinger this is same-origin and no preflight is involved at all.
+ * public/.htaccess leaves `^api/` alone precisely so the PHP is reached rather
+ * than rewritten into index.html.
+ *
+ * Absolute all the same, not relative. The same bundle is served from places
+ * with no PHP behind them — the GitHub Pages preview, the dev server — where a
+ * relative `api/email.php` resolves against the wrong origin and 404s. Written
+ * out in full it reaches the clinic's handler from anywhere; the handler
+ * answers OPTIONS and sends `Access-Control-Allow-Origin` for those cases.
  *
  * https, not http. The endpoint was given as `http://`, but a page served over
  * https is not allowed to post to it — browsers block mixed content outright,
@@ -21,7 +26,7 @@
  * entirely while developing — the UI still reports success.
  */
 const LEAD_ENDPOINT =
-  import.meta.env.VITE_LEAD_ENDPOINT || 'https://chennai.bonitaa.co.in/api/email.php'
+  import.meta.env.VITE_LEAD_ENDPOINT || 'https://chennaiclinic.bonitaa.co.in/skin/api/email.php'
 const DELIVERY_OFF = LEAD_ENDPOINT === 'off'
 
 /* How long the visitor waits before being thanked regardless. */
@@ -60,27 +65,36 @@ const SOURCE_LABEL = {
 }
 
 /**
+ * Every branch on this page is a Chennai branch — Mylapore and Velachery, both
+ * in BRANCHES — so the handler's `city` is a constant rather than a question.
+ * Asking for it would be asking a visitor to retype the one fact the page has
+ * said in its heading, its title tag and the name of the field above it.
+ */
+const CITY = 'Chennai'
+
+/**
  * Maps the form's answers onto the handler's payload.
  *
- * One key per question, and nothing else. `email`, `time`, `treatment` and
- * `message` are gone: the form asks for a phone rather than an email, because
- * the page promises a callback; the Morning/Afternoon/Evening choice is a date
- * picker again; and treatment was never asked. Sending a key the form cannot
- * fill only puts blank rows in the notification email and blank columns in the
- * sheet.
+ * The shape is the handler's, exactly: {name, phone, city, branch, date,
+ * source}. It is not the form's shape and must not be reduced to it — a key
+ * the handler requires and does not receive is rejected as "Missing required
+ * fields", and rejected *silently*, because the visitor is thanked before the
+ * answer arrives (see ACK_MS below). `city` is the case in point: it is not a
+ * form field, so it is supplied here.
  *
- * ⚠ THIS SHAPE REQUIRES A MATCHING email.php, AND IT IS A BLOCKING CHECK.
- * The handler was built for {name, phone, city, branch, date}. `city` is no
- * longer asked, so if the handler still treats it as required it will reject
- * EVERY enquiry as "Missing required fields" — silently, because the visitor
- * is thanked before the answer arrives (see ACK_MS below). Confirm the handler
- * accepts {name, phone, branch, date} before this goes live. Set
- * VITE_LEAD_ENDPOINT=off to test the UI without delivery.
+ * Nothing else is sent. `email`, `time`, `treatment` and `message` are gone:
+ * the form asks for a phone rather than an email, because the page promises a
+ * callback; the Morning/Afternoon/Evening choice is a date picker; and
+ * treatment was never asked. Sending a key the form cannot fill only puts
+ * blank rows in the notification email and blank columns in the sheet.
+ *
+ * Set VITE_LEAD_ENDPOINT=off to exercise the UI without delivering.
  */
 function toApiPayload(lead) {
   return {
     name: lead.name ?? '',
     phone: lead.phone ?? '',
+    city: CITY,
     branch: lead.branch ?? '',
     date: lead.date ?? '',
     source: SOURCE_LABEL[lead.source] ?? lead.source ?? 'Website Form',
